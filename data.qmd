@@ -1,0 +1,59 @@
+---
+title: "Ballpark Dimensions & Factors Dataset"
+subtitle: "Explore all 810 ballpark-season observations from MLB Baseball Savant (2018–2026)"
+format:
+  html:
+    page-layout: full
+---
+
+```{r}
+#| label: setup-data
+#| message: false
+#| warning: false
+#| echo: false
+
+library(tidyverse)
+library(jsonlite)
+library(DT)
+
+parks <- fromJSON("data/park_dimensions_factors.json") |>
+  as_tibble() |>
+  select(
+    Season = season,
+    Ballpark = venue_name,
+    Team = team,
+    League = league,
+    Split = split,
+    `HR Factor` = index_hr,
+    `Runs Factor` = index_runs,
+    `Avg Fence Dist (ft)` = avg_fence_distance,
+    `LF Line (ft)` = distance_lf_line,
+    `CF (ft)` = distance_cf,
+    `RF Line (ft)` = distance_rf_line,
+    `Max Wall (ft)` = height_highest,
+    `Elevation (ft)` = elevation,
+    Roof = roof
+  )
+```
+
+::: {.glass-card}
+```{r}
+#| label: table-view
+#| echo: false
+
+datatable(
+  parks,
+  extensions = c("Buttons", "Responsive"),
+  options = list(
+    dom = "Bfrtip",
+    buttons = c("copy", "csv", "excel"),
+    pageLength = 15,
+    searchHighlight = TRUE,
+    autoWidth = TRUE
+  ),
+  filter = "top",
+  rownames = FALSE,
+  class = "compact stripe hover"
+)
+```
+:::

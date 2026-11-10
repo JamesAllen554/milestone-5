@@ -1,0 +1,28 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "⚾ MLB Statcast Explorer"
+  navbar:
+    background: "#0f172a"
+    foreground: "#e2e8f0"
+    left:
+      - href: index.qmd
+        text: "🏟️ Explorer"
+      - href: rankings.qmd
+        text: "📊 Park Rankings"
+      - href: data.qmd
+        text: "📋 Data Table"
+      - href: about.qmd
+        text: "ℹ️ About"
+    right:
+      - text: "Baseball Savant"
+        href: "https://baseballsavant.mlb.com/leaderboard/statcast-park-factors"
+
+format:
+  html:
+    theme: darkly
+    css: styles.css
+    page-layout: full
+    toc: false

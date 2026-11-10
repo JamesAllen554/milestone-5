@@ -1,0 +1,297 @@
+---
+title: "MLB Statcast Ballpark Explorer"
+subtitle: "Dimensions, Fence Factors & Home Run Launch Metrics"
+format:
+  html:
+    page-layout: full
+---
+
+```{=html}
+<div class="stat-grid">
+  <div class="stat-tile border-blue">
+    <div class="stat-label">Ballparks</div>
+    <div class="stat-value">30 MLB Parks</div>
+    <div class="stat-sub" style="color: #60a5fa;">All 30 Active Venues</div>
+  </div>
+  <div class="stat-tile border-purple">
+    <div class="stat-label">Seasons Included</div>
+    <div class="stat-value">2018 – 2026</div>
+    <div class="stat-sub" style="color: #c084fc;">810 Dimension Profiles</div>
+  </div>
+  <div class="stat-tile border-emerald">
+    <div class="stat-label">Home Runs Analyzed</div>
+    <div class="stat-value">3,500+ HRs</div>
+    <div class="stat-sub" style="color: #34d399;">Individual Statcast Events</div>
+  </div>
+  <div class="stat-tile border-red">
+    <div class="stat-label">Most HR-Friendly</div>
+    <div class="stat-value" style="color: #f87171;">Great American</div>
+    <div class="stat-sub" style="color: #94a3b8;">HR Index: <strong style="color: #f87171;">113–125</strong></div>
+  </div>
+  <div class="stat-tile border-amber">
+    <div class="stat-label">Toughest For HRs</div>
+    <div class="stat-value" style="color: #fbbf24;">Comerica Park</div>
+    <div class="stat-sub" style="color: #94a3b8;">HR Index: <strong style="color: #fbbf24;">75–82</strong></div>
+  </div>
+  <div class="stat-tile border-indigo">
+    <div class="stat-label">Average HR Distance</div>
+    <div class="stat-value" style="color: #818cf8;">398.2 ft</div>
+    <div class="stat-sub" style="color: #94a3b8;">Exit Velo: 103.8 mph</div>
+  </div>
+</div>
+```
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+#| echo: false
+
+library(tidyverse)
+library(jsonlite)
+library(plotly)
+
+# Load scraped park dimensions dataset
+parks <- fromJSON("data/park_dimensions_factors.json") |>
+  as_tibble()
+
+# 2026 season data for macro plot
+parks_current <- parks |>
+  filter(season == 2026, split == "All")
+
+fit <- lm(index_hr ~ avg_fence_distance, data = parks_current)
+r_val <- cor(parks_current$avg_fence_distance, parks_current$index_hr, use = "complete.obs")
+r2_val <- summary(fit)$r.squared
+
+# Load Statcast individual home runs dataset
+hr_data <- fromJSON("data/statcast_homeruns.json") |>
+  as_tibble()
+
+max_dist <- max(hr_data$dist, na.rm = TRUE)
+min_dist <- min(hr_data$dist, na.rm = TRUE)
+max_ev <- max(hr_data$ev, na.rm = TRUE)
+avg_ev <- round(mean(hr_data$ev, na.rm = TRUE), 1)
+```
+
+::: {.panel-tabset}
+
+## ⚡ Statcast Home Runs (3,500+ Hits)
+
+Explore batted-ball exit velocities, launch angles, and distances across 3,500+ individual home runs tracked by Statcast.
+
+```{=html}
+<div class="stat-grid">
+  <div class="stat-tile border-emerald">
+    <div class="stat-label">Max HR Distance</div>
+    <div class="stat-value" style="color: #34d399;">`r max_dist` ft</div>
+    <div class="stat-sub" style="color: #94a3b8;">Longest recorded blast</div>
+  </div>
+  <div class="stat-tile border-amber">
+    <div class="stat-label">Shortest Wall-Scraper</div>
+    <div class="stat-value" style="color: #fbbf24;">`r min_dist` ft</div>
+    <div class="stat-sub" style="color: #94a3b8;">Short-porch special</div>
+  </div>
+  <div class="stat-tile border-red">
+    <div class="stat-label">Max Exit Velocity</div>
+    <div class="stat-value" style="color: #f87171;">`r max_ev` mph</div>
+    <div class="stat-sub" style="color: #94a3b8;">Hardest hit ball</div>
+  </div>
+  <div class="stat-tile border-purple">
+    <div class="stat-label">Optimal Launch Angle</div>
+    <div class="stat-value" style="color: #c084fc;">24° – 32°</div>
+    <div class="stat-sub" style="color: #94a3b8;">Sweet spot for HR power</div>
+  </div>
+</div>
+```
+
+::: {.glass-card}
+### Exit Velocity vs. Hit Distance
+
+```{r}
+#| label: plot-hr-scatter
+#| message: false
+#| warning: false
+#| echo: false
+
+p_hr <- plot_ly(
+  data = hr_data,
+  x = ~ev,
+  y = ~dist,
+  color = ~stand,
+  colors = c("L" = "#38bdf8", "R" = "#f472b6"),
+  type = "scatter",
+  mode = "markers",
+  text = ~paste0(
+    "<b>", player, "</b> (", stand, "HB)<br>",
+    "Stadium: ", stadium, " (", team, ")<br>",
+    "Date: ", date, "<br>",
+    "Exit Velo: ", ev, " mph<br>",
+    "Distance: ", dist, " ft<br>",
+    "Launch Angle: ", la, "°<br>",
+    "Pitch: ", pitch_speed, " mph<br>",
+    "<i>", des, "</i>"
+  ),
+  hoverinfo = "text",
+  marker = list(
+    size = 6,
+    opacity = 0.65
+  )
+) |>
+  layout(
+    title = list(
+      text = "<b>Exit Velocity vs. Hit Distance (Color by Batter Hand)</b>",
+      font = list(color = "#ffffff", size = 16)
+    ),
+    paper_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "rgba(15, 23, 42, 0.6)",
+    xaxis = list(
+      title = "Exit Velocity (mph)",
+      gridcolor = "rgba(51, 65, 85, 0.4)",
+      color = "#94a3b8"
+    ),
+    yaxis = list(
+      title = "Hit Distance (ft)",
+      gridcolor = "rgba(51, 65, 85, 0.4)",
+      color = "#94a3b8"
+    ),
+    legend = list(
+      font = list(color = "#e2e8f0"),
+      title = list(text = "<b>Batter Hand</b>")
+    )
+  )
+
+p_hr
+```
+:::
+
+::: {.glass-card}
+### Launch Angle vs. Exit Velocity
+
+```{r}
+#| label: plot-launch-angle
+#| message: false
+#| warning: false
+#| echo: false
+
+p_la <- plot_ly(
+  data = hr_data,
+  x = ~la,
+  y = ~ev,
+  color = ~dist,
+  colors = c("#38bdf8", "#f43f5e"),
+  type = "scatter",
+  mode = "markers",
+  text = ~paste0(
+    "<b>", player, "</b><br>",
+    "Launch Angle: ", la, "°<br>",
+    "Exit Velocity: ", ev, " mph<br>",
+    "Distance: ", dist, " ft<br>",
+    "Stadium: ", stadium
+  ),
+  hoverinfo = "text",
+  marker = list(
+    size = 6,
+    opacity = 0.7,
+    colorbar = list(
+      title = list(text = "Distance (ft)", font = list(color = "#e2e8f0")),
+      tickfont = list(color = "#e2e8f0")
+    )
+  )
+) |>
+  layout(
+    title = list(
+      text = "<b>Launch Angle (°) vs. Exit Velocity (mph)</b>",
+      font = list(color = "#ffffff", size = 16)
+    ),
+    paper_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "rgba(15, 23, 42, 0.6)",
+    xaxis = list(
+      title = "Launch Angle (degrees)",
+      gridcolor = "rgba(51, 65, 85, 0.4)",
+      color = "#94a3b8"
+    ),
+    yaxis = list(
+      title = "Exit Velocity (mph)",
+      gridcolor = "rgba(51, 65, 85, 0.4)",
+      color = "#94a3b8"
+    )
+  )
+
+p_la
+```
+:::
+
+## 🏟️ Ballpark Dimensions vs. HR Factor
+
+Explore how outfield fence distance, wall height, and stadium altitude govern home run rates across Major League Baseball.
+
+::: {.glass-card}
+```{r}
+#| label: plot-macro
+#| message: false
+#| warning: false
+#| echo: false
+
+p_macro <- plot_ly(
+  data = parks_current,
+  x = ~avg_fence_distance,
+  y = ~index_hr,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste0(
+    "<b>", venue_name, "</b> (", team, ")<br>",
+    "City: ", city, "<br>",
+    "HR Factor: ", index_hr, "<br>",
+    "Avg Fence Dist: ", avg_fence_distance, " ft<br>",
+    "Elevation: ", elevation, " ft"
+  ),
+  hoverinfo = "text",
+  marker = list(
+    size = 12,
+    color = ~color,
+    line = list(color = "#ffffff", width = 1.5),
+    opacity = 0.9
+  )
+) |>
+  add_lines(
+    x = ~avg_fence_distance,
+    y = fitted(fit),
+    line = list(color = "#3b82f6", width = 2.5, dash = "dash"),
+    name = "OLS Trendline",
+    hoverinfo = "none"
+  ) |>
+  layout(
+    title = list(
+      text = "<b>Fence Distance vs. Home Run Park Factor (2026)</b>",
+      font = list(color = "#ffffff", size = 16)
+    ),
+    paper_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "rgba(15, 23, 42, 0.6)",
+    xaxis = list(
+      title = "Average Fence Distance (ft)",
+      gridcolor = "rgba(51, 65, 85, 0.4)",
+      color = "#94a3b8"
+    ),
+    yaxis = list(
+      title = "Home Run Factor (100 = MLB Average)",
+      gridcolor = "rgba(51, 65, 85, 0.4)",
+      color = "#94a3b8"
+    ),
+    showlegend = FALSE
+  )
+
+p_macro
+```
+:::
+
+::: {.glass-card}
+### Statistical Regression Summary
+
+- **Correlation Coefficient ($r$):** `r round(r_val, 3)` (moderate negative correlation)
+- **Coefficient of Determination ($R^2$):** `r round(r2_val, 3)`
+- **Regression Equation:** `r sprintf("HR Factor = %.2f * (Avg Fence Dist) + %.1f", coef(fit)[2], coef(fit)[1])`
+
+> **Key takeaway:** Shorter outfield fences strongly facilitate home run production. Each 1-foot decrease in average fence distance correlates with an increase in home run factor.
+:::
+
+:::

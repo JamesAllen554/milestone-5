@@ -1,0 +1,157 @@
+---
+title: "MLB Ballpark Leaderboard & Rankings"
+subtitle: "Statcast 2026 Home Run Factor by Stadium"
+format:
+  html:
+    page-layout: full
+---
+
+```{r}
+#| label: setup-rankings
+#| message: false
+#| warning: false
+#| echo: false
+
+library(tidyverse)
+library(jsonlite)
+library(plotly)
+
+parks <- fromJSON("data/park_dimensions_factors.json") |>
+  as_tibble()
+
+parks_2026 <- parks |>
+  filter(season == 2026, split == "All") |>
+  arrange(desc(index_hr)) |>
+  mutate(
+    rank = row_number(),
+    category = case_when(
+      index_hr >= 105 ~ "HR Friendly (>105)",
+      index_hr <= 95  ~ "Pitcher Friendly (<95)",
+      TRUE            ~ "Neutral (95-105)"
+    ),
+    cat_color = case_when(
+      index_hr >= 105 ~ "#ef4444",
+      index_hr <= 95  ~ "#3b82f6",
+      TRUE            ~ "#94a3b8"
+    )
+  )
+```
+
+## Stadium Home Run Factor Rankings (2026)
+
+A score of **100** represents MLB average. Stadiums with an index above 100 boost home run production above league average, while stadiums below 100 suppress home runs.
+
+::: {.glass-card}
+```{r}
+#| label: plot-rankings-bar
+#| message: false
+#| warning: false
+#| echo: false
+
+p_rank <- plot_ly(
+  data = parks_2026,
+  y = ~reorder(venue_name, index_hr),
+  x = ~index_hr,
+  type = "bar",
+  orientation = "h",
+  color = ~category,
+  colors = c("HR Friendly (>105)" = "#ef4444", "Neutral (95-105)" = "#64748b", "Pitcher Friendly (<95)" = "#3b82f6"),
+  text = ~paste0(index_hr, " (", team, ")"),
+  textposition = "outside",
+  hoverinfo = "text",
+  hovertext = ~paste0(
+    "<b>#", rank, " ", venue_name, "</b><br>",
+    "Team: ", team, " (", league, ")<br>",
+    "HR Factor: ", index_hr, "<br>",
+    "Avg Fence Dist: ", avg_fence_distance, " ft<br>",
+    "Elevation: ", elevation, " ft<br>",
+    "Roof: ", roof
+  )
+) |>
+  layout(
+    title = list(
+      text = "<b>2026 MLB Ballparks Ranked by Statcast Home Run Factor</b>",
+      font = list(color = "#ffffff", size = 16)
+    ),
+    height = 800,
+    paper_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "rgba(15, 23, 42, 0.6)",
+    xaxis = list(
+      title = "Home Run Factor (100 = MLB Average)",
+      gridcolor = "rgba(51, 65, 85, 0.4)",
+      color = "#94a3b8",
+      range = c(60, 145)
+    ),
+    yaxis = list(
+      title = "",
+      gridcolor = "rgba(51, 65, 85, 0.2)",
+      color = "#e2e8f0"
+    ),
+    legend = list(
+      font = list(color = "#e2e8f0"),
+      orientation = "h",
+      y = 1.05
+    )
+  )
+
+p_rank
+```
+:::
+
+## Ballpark Profiles & Physical Specs
+
+```{r}
+#| label: rankings-cards
+#| results: asis
+#| echo: false
+
+cat('<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">\n')
+
+for (i in seq_len(nrow(parks_2026))) {
+  row <- parks_2026[i, ]
+  badge_class <- if (row$index_hr >= 105) {
+    "badge bg-danger"
+  } else if (row$index_hr <= 95) {
+    "badge bg-primary"
+  } else {
+    "badge bg-secondary"
+  }
+  
+  cat(sprintf('
+  <div class="col">
+    <div class="glass-card h-100" style="border-top: 3px solid %s;">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <div>
+          <span class="text-secondary small">#%d</span>
+          <h5 class="text-white mb-0 mt-1">%s</h5>
+          <small class="text-muted">%s &bull; %s (%s)</small>
+        </div>
+        <span class="%s fs-6">HR %d</span>
+      </div>
+      <div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace">
+        <div>LF Line: <span class="text-light">%s ft</span> | CF: <span class="text-light">%s ft</span> | RF Line: <span class="text-light">%s ft</span></div>
+        <div>Avg Fence: <span class="text-light">%s ft</span> | Max Wall: <span class="text-light">%s ft</span></div>
+        <div>Elevation: <span class="text-light">%s ft</span> | Roof: <span class="text-light">%s</span></div>
+      </div>
+    </div>
+  </div>',
+  row$cat_color,
+  row$rank,
+  row$venue_name,
+  row$team,
+  row$division,
+  row$city,
+  badge_class,
+  row$index_hr,
+  row$distance_lf_line,
+  row$distance_cf,
+  row$distance_rf_line,
+  row$avg_fence_distance,
+  row$height_highest,
+  row$elevation,
+  row$roof
+  ))
+}
+
+cat('</div>\n')
+```

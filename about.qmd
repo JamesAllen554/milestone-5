@@ -1,0 +1,33 @@
+---
+title: "About the MLB Statcast Ballpark Explorer"
+subtitle: "Data sources, Bayesian data science context, and methodology"
+format:
+  html:
+    page-layout: full
+---
+
+::: {.glass-card}
+## Project Overview
+
+This project explores how physical ballpark dimensions, wall heights, and environmental factors influence home run rates in Major League Baseball. Built as part of a Bayesian Data Science workflow using **R**, **Quarto**, and the **tidyverse**, the interactive visualizations allow students and analysts to investigate both macro park factors and micro batted-ball metrics.
+
+### Key Data Sources
+
+- **[MLB Baseball Savant](https://baseballsavant.mlb.com/leaderboard/statcast-park-factors)**: Official Statcast Park Factors and Ballpark Dimensions leaderboard (2018–2026).
+- **Statcast Batted Ball Tracking**: Exit velocity (mph), launch angle (degrees), hit distance (ft), and pitch velocity for individual home runs.
+
+### How Statcast Park Factors Work
+
+A park factor of **100** represents the MLB average baseline:
+
+- **> 100**: The ballpark favors hitters (e.g. 115 indicates a park produces 15% more home runs than a neutral park).
+- **< 100**: The ballpark favors pitchers (e.g. 85 indicates a park suppresses home runs by 15%).
+
+### Technology Stack
+
+- **Document Publishing:** Quarto (`.qmd`)
+- **Analysis & Modeling:** R (`tidyverse`, `jsonlite`)
+- **Interactive Visualizations:** `plotly`
+- **Data Tables:** `DT`
+- **Design System:** Custom Dark Glassmorphism CSS
+:::
