@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Ballpark Dimensions &amp; Factors Dataset – ⚾ MLB Statcast Explorer</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-eb52cf25de81082ee7edb8e760f3b9c7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet">
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/dt-ext-responsive-1.13.6/css/responsive.dataTables.min.css" rel="stylesheet">
+<script src="site_libs/dt-ext-responsive-1.13.6/js/dataTables.responsive.min.js"></script>
+<link href="site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="site_libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="site_libs/dt-plugin-searchhighlight-1.13.6/source.css" rel="stylesheet">
+<script src="site_libs/dt-plugin-searchhighlight-1.13.6/jquery.highlight.js"></script>
+<script src="site_libs/dt-plugin-searchhighlight-1.13.6/source.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">⚾ MLB Statcast Explorer</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">🏟️ Explorer</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./rankings.html"> 
+<span class="menu-text">📊 Park Rankings</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./data.html" aria-current="page"> 
+<span class="menu-text">📋 Data Table</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">ℹ️ About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://baseballsavant.mlb.com/leaderboard/statcast-park-factors"> 
+<span class="menu-text">Baseball Savant</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Ballpark Dimensions &amp; Factors Dataset</h1>
+<p class="subtitle lead">Explore all 810 ballpark-season observations from MLB Baseball Savant (2018–2026)</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="glass-card">
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-06e908d45e1fbf80d1ae" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-06e908d45e1fbf80d1ae">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2018\" data-max=\"2026\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"56\" data-max=\"180\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"74\" data-max=\"146\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"362\" data-max=\"385.6\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"307.9\" data-max=\"354.2\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"388.5\" data-max=\"421.8\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"297.2\" data-max=\"350.9\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"6.6\" data-max=\"37.4\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"5197\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","extensions":["Buttons","Responsive"],"data":[[2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026,2026],["Truist Park","UNIQLO Field at Dodger Stadium","Busch Stadium","Tropicana Field","Kauffman Stadium","Rogers Centre","PNC Park","Nationals Park","Globe Life Park in Arlington","Oracle Park","Progressive Field","Daikin Park","Coors Field","Citizens Bank Park","Yankee Stadium","Angel Stadium","loanDepot park","Oriole Park at Camden Yards","Comerica Park","American Family Field","Petco Park","Rate Field","Fenway Park","T-Mobile Park","Oakland Coliseum","Great American Ball Park","Citi Field","Target Field","Chase Field","Wrigley Field","Angel Stadium","Petco Park","Progressive Field","Tropicana Field","Chase Field","Oriole Park at Camden Yards","Great American Ball Park","Citizens Bank Park","Busch Stadium","Citi Field","Daikin Park","Kauffman Stadium","Globe Life Park in Arlington","PNC Park","Coors Field","American Family Field","Rogers Centre","Yankee Stadium","Oakland Coliseum","Nationals Park","T-Mobile Park","Comerica Park","Fenway Park","Truist Park","Wrigley Field","UNIQLO Field at Dodger Stadium","Oracle Park","Rate Field","Target Field","loanDepot park","Rogers Centre","Great American Ball Park","Oracle Park","Citi Field","Petco Park","Yankee Stadium","Citizens Bank Park","Comerica Park","Target Field","Oriole Park at Camden Yards","Progressive Field","Wrigley Field","Busch Stadium","Fenway Park","loanDepot park","Daikin Park","Kauffman Stadium","PNC Park","T-Mobile Park","Coors Field","Angel Stadium","Globe Life Park in Arlington","American Family Field","Oakland Coliseum","Tropicana Field","Chase Field","UNIQLO Field at Dodger Stadium","Truist Park","Rate Field","Nationals Park","Busch Stadium","Oracle Park","Citizens Bank Park","Oriole Park at Camden Yards","Fenway Park","Tropicana Field","Yankee Stadium","loanDepot park","Oakland Coliseum","Great American Ball Park","Citi Field","T-Mobile Park","PNC Park","Comerica Park","Globe Life Park in Arlington","Chase Field","Coors Field","Target Field","Kauffman Stadium","Truist Park","UNIQLO Field at Dodger Stadium","American Family Field","Rogers Centre","Rate Field","Progressive Field","Nationals Park","Petco Park","Wrigley Field","Daikin Park","Angel Stadium","Wrigley Field","Busch Stadium","Progressive Field","Angel Stadium","Oakland Coliseum","Coors Field","Petco Park","Chase Field","Oriole Park at Camden Yards","Rate Field","Kauffman Stadium","Target Field","UNIQLO Field at Dodger Stadium","T-Mobile Park","Comerica Park","Citizens Bank Park","Oracle Park","Great American Ball Park","loanDepot park","Tropicana Field","American Family Field","Yankee Stadium","Citi Field","Fenway Park","Daikin Park","Globe Life Park in Arlington","PNC Park","Rogers Centre","Nationals Park","Truist Park","Daikin Park","Busch Stadium","Coors Field","Citizens Bank Park","Rogers Centre","Nationals Park","Oracle Park","Target Field","American Family Field","Oriole Park at Camden Yards","UNIQLO Field at Dodger Stadium","Globe Life Park in Arlington","Yankee Stadium","Rate Field","T-Mobile Park","Citi Field","Angel Stadium","Great American Ball Park","Oakland Coliseum","loanDepot park","PNC Park","Kauffman Stadium","Fenway Park","Progressive Field","Chase Field","Tropicana Field","Wrigley Field","Comerica Park","Petco Park","Truist Park","Progressive Field","Petco Park","Busch Stadium","Truist Park","Rate Field","Chase Field","Wrigley Field","Sahlen Field","Yankee Stadium","Coors Field","Target Field","T-Mobile Park","Angel Stadium","Comerica Park","Oakland Coliseum","UNIQLO Field at Dodger Stadium","Daikin Park","Oracle Park","Kauffman Stadium","loanDepot park","Great American Ball Park","PNC Park","Globe Life Field","Citi Field","Tropicana Field","American Family Field","Citizens Bank Park","Fenway Park","Nationals Park","Oriole Park at Camden Yards","Oriole Park at Camden Yards","Kauffman Stadium","Comerica Park","Target Field","Fenway Park","American Family Field","Chase Field","Coors Field","Great American Ball Park","Daikin Park","Sahlen Field","Nationals Park","PNC Park","Globe Life Field","Progressive Field","Angel Stadium","Wrigley Field","Tropicana Field","UNIQLO Field at Dodger Stadium","Rate Field","loanDepot park","Truist Park","Yankee Stadium","Petco Park","Oracle Park","Oakland Coliseum","Busch Stadium","T-Mobile Park","Citizens Bank Park","Citi Field","loanDepot park","Oakland Coliseum","Nationals Park","Citi Field","Progressive Field","Sahlen Field","Tropicana Field","Comerica Park","T-Mobile Park","Angel Stadium","Globe Life Field","Rate Field","Yankee Stadium","Wrigley Field","Truist Park","Great American Ball Park","Busch Stadium","PNC Park","American Family Field","Oriole Park at Camden Yards","Daikin Park","Coors Field","Fenway Park","Petco Park","Citizens Bank Park","Target Field","Chase Field","Kauffman Stadium","Oracle Park","UNIQLO Field at Dodger Stadium","Wrigley Field","Oriole Park at Camden Yards","Daikin Park","Nationals Park","Coors Field","Angel Stadium","Fenway Park","American Family Field","Progressive Field","Oracle Park","Citi Field","Citizens Bank Park","T-Mobile Park","Yankee Stadium","UNIQLO Field at Dodger Stadium","Oakland Coliseum","Comerica Park","Chase Field","Great American Ball Park","Rate Field","Globe Life Field","PNC Park","Truist Park","Tropicana Field","Rogers Centre","Target Field","loanDepot park","Petco Park","Busch Stadium","Kauffman Stadium","Oakland Coliseum","Wrigley Field","Daikin Park","Chase Field","Globe Life Field","T-Mobile Park","Oracle Park","Truist Park","Target Field","Tropicana Field","Oriole Park at Camden Yards","Coors Field","Progressive Field","Kauffman Stadium","Petco Park","Citi Field","Great American Ball Park","Yankee Stadium","Rate Field","American Family Field","PNC Park","Fenway Park","Angel Stadium","Rogers Centre","Comerica Park","Busch Stadium","Citizens Bank Park","UNIQLO Field at Dodger Stadium","Nationals Park","loanDepot park","American Family Field","Great American Ball Park","Comerica Park","Oriole Park at Camden Yards","Rogers Centre","UNIQLO Field at Dodger Stadium","Progressive Field","Daikin Park","Truist Park","Yankee Stadium","T-Mobile Park","Target Field","Rate Field","Angel Stadium","loanDepot park","Coors Field","Citi Field","Oakland Coliseum","Globe Life Field","Citizens Bank Park","Fenway Park","Tropicana Field","Nationals Park","Petco Park","Chase Field","Oracle Park","Busch Stadium","Wrigley Field","Kauffman Stadium","PNC Park","Oriole Park at Camden Yards","Oakland Coliseum","Rogers Centre","PNC Park","Daikin Park","Oracle Park","Fenway Park","American Family Field","Tropicana Field","Truist Park","Busch Stadium","Progressive Field","Angel Stadium","Citizens Bank Park","Target Field","Citi Field","T-Mobile Park","Petco Park","Coors Field","Yankee Stadium","loanDepot park","Great American Ball Park","Nationals Park","Rate Field","Kauffman Stadium","Chase Field","Wrigley Field","UNIQLO Field at Dodger Stadium","Comerica Park","Globe Life Field","Kauffman Stadium","Nationals Park","Yankee Stadium","Progressive Field","Truist Park","Daikin Park","Oakland Coliseum","Comerica Park","Target Field","Coors Field","loanDepot park","American Family Field","T-Mobile Park","UNIQLO Field at Dodger Stadium","Citi Field","Great American Ball Park","Citizens Bank Park","Oracle Park","Fenway Park","Tropicana Field","Busch Stadium","Petco Park","PNC Park","Wrigley Field","Globe Life Field","Oriole Park at Camden Yards","Chase Field","Rate Field","Rogers Centre","Angel Stadium","Citi Field","Fenway Park","Coors Field","Wrigley Field","Angel Stadium","Truist Park","Daikin Park","Great American Ball Park","Yankee Stadium","loanDepot park","Nationals Park","Kauffman Stadium","Rate Field","Progressive Field","PNC Park","Comerica Park","Citizens Bank Park","Globe Life Field","American Family Field","Chase Field","T-Mobile Park","Target Field","Oakland Coliseum","Busch Stadium","Rogers Centre","Oriole Park at Camden Yards","Tropicana Field","Petco Park","Oracle Park","UNIQLO Field at Dodger Stadium","UNIQLO Field at Dodger Stadium","American Family Field","Wrigley Field","Rate Field","Globe Life Field","Oriole Park at Camden Yards","Great American Ball Park","T-Mobile Park","Progressive Field","Daikin Park","Oracle Park","Oakland Coliseum","Tropicana Field","Chase Field","Busch Stadium","Target Field","Truist Park","Petco Park","Citizens Bank Park","Angel Stadium","Coors Field","loanDepot park","Citi Field","PNC Park","Yankee Stadium","Kauffman Stadium","Comerica Park","Fenway Park","Rogers Centre","Nationals Park","loanDepot park","Daikin Park","Rate Field","Citizens Bank Park","Fenway Park","Oracle Park","Chase Field","Rogers Centre","Target Field","Citi Field","Oakland Coliseum","PNC Park","Globe Life Field","Angel Stadium","Progressive Field","UNIQLO Field at Dodger Stadium","Great American Ball Park","Kauffman Stadium","Busch Stadium","American Family Field","Comerica Park","Yankee Stadium","Truist Park","Oriole Park at Camden Yards","Wrigley Field","T-Mobile Park","Petco Park","Nationals Park","Tropicana Field","Coors Field","Oakland Coliseum","Truist Park","Rate Field","Yankee Stadium","Fenway Park","Petco Park","Nationals Park","T-Mobile Park","Angel Stadium","Oriole Park at Camden Yards","Kauffman Stadium","Wrigley Field","Citizens Bank Park","Coors Field","Comerica Park","PNC Park","Oracle Park","Busch Stadium","Citi Field","Target Field","Tropicana Field","American Family Field","Great American Ball Park","loanDepot park","UNIQLO Field at Dodger Stadium","Chase Field","Globe Life Field","Rogers Centre","Progressive Field","Daikin Park","PNC Park","Citizens Bank Park","Progressive Field","Truist Park","Kauffman Stadium","Daikin Park","Busch Stadium","loanDepot park","Wrigley Field","Yankee Stadium","Coors Field","UNIQLO Field at Dodger Stadium","Great American Ball Park","Nationals Park","Petco Park","Chase Field","Oakland Coliseum","Citi Field","Angel Stadium","Fenway Park","Oracle Park","Rogers Centre","American Family Field","Tropicana Field","Oriole Park at Camden Yards","Comerica Park","Rate Field","Globe Life Field","T-Mobile Park","Target Field","Fenway Park","Nationals Park","UNIQLO Field at Dodger Stadium","Citizens Bank Park","Target Field","Truist Park","Comerica Park","Citi Field","Oracle Park","Progressive Field","Rogers Centre","Rate Field","Kauffman Stadium","PNC Park","American Family Field","Wrigley Field","loanDepot park","Chase Field","Coors Field","Tropicana Field","Busch Stadium","Yankee Stadium","Angel Stadium","Oakland Coliseum","Petco Park","Globe Life Field","Daikin Park","T-Mobile Park","Great American Ball Park","Oriole Park at Camden Yards","Rate Field","Oakland Coliseum","Nationals Park","Coors Field","Busch Stadium","T-Mobile Park","Petco Park","Target Field","Chase Field","Citizens Bank Park","Comerica Park","Oriole Park at Camden Yards","Progressive Field","Citi Field","Tropicana Field","PNC Park","UNIQLO Field at Dodger Stadium","Globe Life Field","Angel Stadium","Daikin Park","Wrigley Field","Great American Ball Park","American Family Field","Oracle Park","Kauffman Stadium","Rogers Centre","Fenway Park","loanDepot park","Truist Park","Yankee Stadium","PNC Park","Yankee Stadium","Sutter Health Park","Coors Field","Oracle Park","Oriole Park at Camden Yards","Great American Ball Park","Chase Field","Busch Stadium","Angel Stadium","Kauffman Stadium","Citi Field","Progressive Field","Wrigley Field","George M. Steinbrenner Field","Rogers Centre","Nationals Park","Target Field","Citizens Bank Park","Comerica Park","Petco Park","American Family Field","UNIQLO Field at Dodger Stadium","Daikin Park","Globe Life Field","Fenway Park","loanDepot park","Truist Park","T-Mobile Park","Rate Field","Busch Stadium","Nationals Park","Fenway Park","Great American Ball Park","Truist Park","Citizens Bank Park","T-Mobile Park","George M. Steinbrenner Field","Petco Park","Comerica Park","UNIQLO Field at Dodger Stadium","Globe Life Field","Progressive Field","Daikin Park","Rogers Centre","Oriole Park at Camden Yards","PNC Park","American Family Field","loanDepot park","Angel Stadium","Oracle Park","Citi Field","Wrigley Field","Rate Field","Coors Field","Kauffman Stadium","Chase Field","Yankee Stadium","Sutter Health Park","Target Field","Petco Park","Angel Stadium","Wrigley Field","Yankee Stadium","Truist Park","Comerica Park","loanDepot park","Chase Field","UNIQLO Field at Dodger Stadium","Great American Ball Park","Rogers Centre","Progressive Field","Kauffman Stadium","Coors Field","PNC Park","Nationals Park","Fenway Park","Sutter Health Park","Target Field","Daikin Park","Oracle Park","Oriole Park at Camden Yards","Globe Life Field","Rate Field","Citi Field","George M. Steinbrenner Field","T-Mobile Park","Citizens Bank Park","American Family Field","Busch Stadium","Coors Field","American Family Field","Rogers Centre","Citi Field","UNIQLO Field at Dodger Stadium","Great American Ball Park","Angel Stadium","Progressive Field","Oracle Park","Target Field","Busch Stadium","Daikin Park","Yankee Stadium","Rate Field","loanDepot park","Globe Life Field","Oriole Park at Camden Yards","Citizens Bank Park","Fenway Park","Kauffman Stadium","Wrigley Field","Comerica Park","Petco Park","Nationals Park","Chase Field","Sutter Health Park","Tropicana Field","T-Mobile Park","PNC Park","Truist Park","Progressive Field","Chase Field","Truist Park","T-Mobile Park","Wrigley Field","Daikin Park","PNC Park","Rate Field","Globe Life Field","loanDepot park","Fenway Park","Busch Stadium","Oracle Park","Comerica Park","Sutter Health Park","Yankee Stadium","American Family Field","Great American Ball Park","UNIQLO Field at Dodger Stadium","Nationals Park","Citizens Bank Park","Citi Field","Coors Field","Tropicana Field","Target Field","Angel Stadium","Rogers Centre","Oriole Park at Camden Yards","Petco Park","Kauffman Stadium","Kauffman Stadium","Fenway Park","Oracle Park","PNC Park","Citi Field","Wrigley Field","UNIQLO Field at Dodger Stadium","Yankee Stadium","loanDepot park","Nationals Park","Target Field","Globe Life Field","Coors Field","Oriole Park at Camden Yards","Rate Field","American Family Field","Angel Stadium","Sutter Health Park","Progressive Field","Tropicana Field","Citizens Bank Park","Great American Ball Park","Daikin Park","Rogers Centre","Petco Park","Truist Park","Chase Field","T-Mobile Park","Busch Stadium","Comerica Park"],["Braves","Dodgers","Cardinals","Rays","Royals","Blue Jays","Pirates","Nationals","Rangers","Giants","Guardians","Astros","Rockies","Phillies","Yankees","Angels","Marlins","Orioles","Tigers","Brewers","Padres","White Sox","Red Sox","Mariners","Athletics","Reds","Mets","Twins","D-backs","Cubs","Angels","Padres","Guardians","Rays","D-backs","Orioles","Reds","Phillies","Cardinals","Mets","Astros","Royals","Rangers","Pirates","Rockies","Brewers","Blue Jays","Yankees","Athletics","Nationals","Mariners","Tigers","Red Sox","Braves","Cubs","Dodgers","Giants","White Sox","Twins","Marlins","Blue Jays","Reds","Giants","Mets","Padres","Yankees","Phillies","Tigers","Twins","Orioles","Guardians","Cubs","Cardinals","Red Sox","Marlins","Astros","Royals","Pirates","Mariners","Rockies","Angels","Rangers","Brewers","Athletics","Rays","D-backs","Dodgers","Braves","White Sox","Nationals","Cardinals","Giants","Phillies","Orioles","Red Sox","Rays","Yankees","Marlins","Athletics","Reds","Mets","Mariners","Pirates","Tigers","Rangers","D-backs","Rockies","Twins","Royals","Braves","Dodgers","Brewers","Blue Jays","White Sox","Guardians","Nationals","Padres","Cubs","Astros","Angels","Cubs","Cardinals","Guardians","Angels","Athletics","Rockies","Padres","D-backs","Orioles","White Sox","Royals","Twins","Dodgers","Mariners","Tigers","Phillies","Giants","Reds","Marlins","Rays","Brewers","Yankees","Mets","Red Sox","Astros","Rangers","Pirates","Blue Jays","Nationals","Braves","Astros","Cardinals","Rockies","Phillies","Blue Jays","Nationals","Giants","Twins","Brewers","Orioles","Dodgers","Rangers","Yankees","White Sox","Mariners","Mets","Angels","Reds","Athletics","Marlins","Pirates","Royals","Red Sox","Guardians","D-backs","Rays","Cubs","Tigers","Padres","Braves","Guardians","Padres","Cardinals","Braves","White Sox","D-backs","Cubs","Blue Jays","Yankees","Rockies","Twins","Mariners","Angels","Tigers","Athletics","Dodgers","Astros","Giants","Royals","Marlins","Reds","Pirates","Rangers","Mets","Rays","Brewers","Phillies","Red Sox","Nationals","Orioles","Orioles","Royals","Tigers","Twins","Red Sox","Brewers","D-backs","Rockies","Reds","Astros","Blue Jays","Nationals","Pirates","Rangers","Guardians","Angels","Cubs","Rays","Dodgers","White Sox","Marlins","Braves","Yankees","Padres","Giants","Athletics","Cardinals","Mariners","Phillies","Mets","Marlins","Athletics","Nationals","Mets","Guardians","Blue Jays","Rays","Tigers","Mariners","Angels","Rangers","White Sox","Yankees","Cubs","Braves","Reds","Cardinals","Pirates","Brewers","Orioles","Astros","Rockies","Red Sox","Padres","Phillies","Twins","D-backs","Royals","Giants","Dodgers","Cubs","Orioles","Astros","Nationals","Rockies","Angels","Red Sox","Brewers","Guardians","Giants","Mets","Phillies","Mariners","Yankees","Dodgers","Athletics","Tigers","D-backs","Reds","White Sox","Rangers","Pirates","Braves","Rays","Blue Jays","Twins","Marlins","Padres","Cardinals","Royals","Athletics","Cubs","Astros","D-backs","Rangers","Mariners","Giants","Braves","Twins","Rays","Orioles","Rockies","Guardians","Royals","Padres","Mets","Reds","Yankees","White Sox","Brewers","Pirates","Red Sox","Angels","Blue Jays","Tigers","Cardinals","Phillies","Dodgers","Nationals","Marlins","Brewers","Reds","Tigers","Orioles","Blue Jays","Dodgers","Guardians","Astros","Braves","Yankees","Mariners","Twins","White Sox","Angels","Marlins","Rockies","Mets","Athletics","Rangers","Phillies","Red Sox","Rays","Nationals","Padres","D-backs","Giants","Cardinals","Cubs","Royals","Pirates","Orioles","Athletics","Blue Jays","Pirates","Astros","Giants","Red Sox","Brewers","Rays","Braves","Cardinals","Guardians","Angels","Phillies","Twins","Mets","Mariners","Padres","Rockies","Yankees","Marlins","Reds","Nationals","White Sox","Royals","D-backs","Cubs","Dodgers","Tigers","Rangers","Royals","Nationals","Yankees","Guardians","Braves","Astros","Athletics","Tigers","Twins","Rockies","Marlins","Brewers","Mariners","Dodgers","Mets","Reds","Phillies","Giants","Red Sox","Rays","Cardinals","Padres","Pirates","Cubs","Rangers","Orioles","D-backs","White Sox","Blue Jays","Angels","Mets","Red Sox","Rockies","Cubs","Angels","Braves","Astros","Reds","Yankees","Marlins","Nationals","Royals","White Sox","Guardians","Pirates","Tigers","Phillies","Rangers","Brewers","D-backs","Mariners","Twins","Athletics","Cardinals","Blue Jays","Orioles","Rays","Padres","Giants","Dodgers","Dodgers","Brewers","Cubs","White Sox","Rangers","Orioles","Reds","Mariners","Guardians","Astros","Giants","Athletics","Rays","D-backs","Cardinals","Twins","Braves","Padres","Phillies","Angels","Rockies","Marlins","Mets","Pirates","Yankees","Royals","Tigers","Red Sox","Blue Jays","Nationals","Marlins","Astros","White Sox","Phillies","Red Sox","Giants","D-backs","Blue Jays","Twins","Mets","Athletics","Pirates","Rangers","Angels","Guardians","Dodgers","Reds","Royals","Cardinals","Brewers","Tigers","Yankees","Braves","Orioles","Cubs","Mariners","Padres","Nationals","Rays","Rockies","Athletics","Braves","White Sox","Yankees","Red Sox","Padres","Nationals","Mariners","Angels","Orioles","Royals","Cubs","Phillies","Rockies","Tigers","Pirates","Giants","Cardinals","Mets","Twins","Rays","Brewers","Reds","Marlins","Dodgers","D-backs","Rangers","Blue Jays","Guardians","Astros","Pirates","Phillies","Guardians","Braves","Royals","Astros","Cardinals","Marlins","Cubs","Yankees","Rockies","Dodgers","Reds","Nationals","Padres","D-backs","Athletics","Mets","Angels","Red Sox","Giants","Blue Jays","Brewers","Rays","Orioles","Tigers","White Sox","Rangers","Mariners","Twins","Red Sox","Nationals","Dodgers","Phillies","Twins","Braves","Tigers","Mets","Giants","Guardians","Blue Jays","White Sox","Royals","Pirates","Brewers","Cubs","Marlins","D-backs","Rockies","Rays","Cardinals","Yankees","Angels","Athletics","Padres","Rangers","Astros","Mariners","Reds","Orioles","White Sox","Athletics","Nationals","Rockies","Cardinals","Mariners","Padres","Twins","D-backs","Phillies","Tigers","Orioles","Guardians","Mets","Rays","Pirates","Dodgers","Rangers","Angels","Astros","Cubs","Reds","Brewers","Giants","Royals","Blue Jays","Red Sox","Marlins","Braves","Yankees","Pirates","Yankees","Athletics","Rockies","Giants","Orioles","Reds","D-backs","Cardinals","Angels","Royals","Mets","Guardians","Cubs","Rays","Blue Jays","Nationals","Twins","Phillies","Tigers","Padres","Brewers","Dodgers","Astros","Rangers","Red Sox","Marlins","Braves","Mariners","White Sox","Cardinals","Nationals","Red Sox","Reds","Braves","Phillies","Mariners","Rays","Padres","Tigers","Dodgers","Rangers","Guardians","Astros","Blue Jays","Orioles","Pirates","Brewers","Marlins","Angels","Giants","Mets","Cubs","White Sox","Rockies","Royals","D-backs","Yankees","Athletics","Twins","Padres","Angels","Cubs","Yankees","Braves","Tigers","Marlins","D-backs","Dodgers","Reds","Blue Jays","Guardians","Royals","Rockies","Pirates","Nationals","Red Sox","Athletics","Twins","Astros","Giants","Orioles","Rangers","White Sox","Mets","Rays","Mariners","Phillies","Brewers","Cardinals","Rockies","Brewers","Blue Jays","Mets","Dodgers","Reds","Angels","Guardians","Giants","Twins","Cardinals","Astros","Yankees","White Sox","Marlins","Rangers","Orioles","Phillies","Red Sox","Royals","Cubs","Tigers","Padres","Nationals","D-backs","Athletics","Rays","Mariners","Pirates","Braves","Guardians","D-backs","Braves","Mariners","Cubs","Astros","Pirates","White Sox","Rangers","Marlins","Red Sox","Cardinals","Giants","Tigers","Athletics","Yankees","Brewers","Reds","Dodgers","Nationals","Phillies","Mets","Rockies","Rays","Twins","Angels","Blue Jays","Orioles","Padres","Royals","Royals","Red Sox","Giants","Pirates","Mets","Cubs","Dodgers","Yankees","Marlins","Nationals","Twins","Rangers","Rockies","Orioles","White Sox","Brewers","Angels","Athletics","Guardians","Rays","Phillies","Reds","Astros","Blue Jays","Padres","Braves","D-backs","Mariners","Cardinals","Tigers"],["NL","NL","NL","AL","AL","AL","NL","NL","MLB","NL","AL","MLB","NL","NL","AL","AL","NL","AL","AL","NL","NL","MLB","AL","AL","AL","NL","NL","AL","NL","NL","AL","NL","AL","AL","NL","AL","NL","NL","NL","NL","MLB","AL","MLB","NL","NL","NL","AL","AL","AL","NL","AL","AL","AL","NL","NL","NL","NL","MLB","AL","NL","AL","NL","NL","NL","NL","AL","NL","AL","AL","AL","AL","NL","NL","AL","NL","MLB","AL","NL","AL","NL","AL","MLB","NL","AL","AL","NL","NL","NL","MLB","NL","NL","NL","NL","AL","AL","AL","AL","NL","AL","NL","NL","AL","NL","AL","MLB","NL","NL","AL","AL","NL","NL","NL","AL","MLB","AL","NL","NL","NL","MLB","AL","NL","NL","AL","AL","AL","NL","NL","NL","AL","MLB","AL","AL","NL","AL","AL","NL","NL","NL","NL","AL","NL","AL","NL","AL","MLB","MLB","NL","AL","NL","NL","MLB","NL","NL","NL","AL","NL","NL","AL","NL","AL","NL","MLB","AL","MLB","AL","NL","AL","NL","AL","NL","NL","AL","AL","AL","NL","AL","NL","AL","NL","NL","AL","NL","NL","NL","MLB","NL","NL","MLB","AL","NL","AL","AL","AL","AL","AL","NL","MLB","NL","AL","NL","NL","NL","AL","NL","AL","NL","NL","AL","NL","AL","AL","AL","AL","AL","AL","NL","NL","NL","NL","MLB","MLB","NL","NL","AL","AL","AL","NL","AL","NL","MLB","NL","NL","AL","NL","NL","AL","NL","AL","NL","NL","NL","AL","NL","NL","AL","MLB","AL","AL","AL","AL","AL","MLB","AL","NL","NL","NL","NL","NL","NL","AL","MLB","NL","AL","NL","NL","AL","NL","AL","NL","NL","NL","AL","MLB","NL","NL","AL","AL","NL","AL","NL","NL","NL","AL","AL","NL","AL","AL","NL","NL","MLB","AL","NL","NL","AL","AL","AL","NL","NL","NL","AL","AL","NL","MLB","NL","AL","AL","NL","NL","AL","AL","AL","NL","AL","AL","NL","NL","NL","AL","MLB","NL","NL","AL","AL","AL","AL","NL","NL","NL","NL","NL","NL","NL","AL","AL","AL","NL","AL","MLB","NL","AL","AL","AL","MLB","AL","NL","NL","NL","AL","AL","NL","AL","AL","NL","NL","NL","NL","NL","NL","AL","NL","AL","AL","AL","NL","MLB","NL","AL","NL","AL","NL","NL","AL","AL","NL","AL","NL","AL","NL","NL","AL","NL","NL","NL","MLB","AL","NL","NL","NL","AL","AL","AL","NL","AL","AL","NL","MLB","AL","AL","AL","NL","NL","NL","AL","NL","NL","NL","NL","NL","AL","AL","NL","NL","NL","NL","AL","AL","NL","MLB","AL","AL","NL","AL","NL","NL","AL","NL","MLB","NL","AL","NL","NL","AL","MLB","AL","NL","AL","NL","AL","NL","NL","AL","AL","AL","NL","AL","AL","AL","NL","NL","NL","NL","NL","NL","MLB","AL","AL","NL","AL","AL","MLB","NL","AL","AL","NL","NL","AL","NL","NL","NL","AL","NL","NL","NL","NL","AL","AL","AL","AL","AL","NL","NL","MLB","MLB","NL","AL","NL","NL","AL","AL","NL","AL","NL","AL","AL","AL","NL","NL","AL","NL","NL","AL","AL","NL","AL","NL","AL","NL","NL","AL","NL","AL","NL","MLB","AL","AL","NL","NL","AL","AL","AL","AL","NL","NL","NL","AL","NL","NL","NL","NL","AL","AL","NL","NL","NL","NL","NL","AL","AL","AL","MLB","NL","NL","AL","NL","AL","MLB","NL","NL","NL","AL","NL","NL","NL","NL","NL","NL","AL","NL","AL","AL","NL","AL","NL","AL","AL","AL","MLB","AL","AL","AL","AL","NL","NL","NL","AL","NL","AL","NL","NL","AL","AL","MLB","AL","NL","NL","NL","NL","NL","NL","AL","NL","AL","AL","AL","NL","AL","MLB","AL","NL","AL","MLB","AL","NL","NL","NL","AL","NL","AL","NL","NL","AL","AL","AL","NL","AL","NL","NL","AL","AL","MLB","NL","NL","NL","NL","AL","AL","AL","NL","NL","AL","NL","AL","AL","NL","NL","AL","NL","NL","NL","AL","AL","NL","AL","NL","MLB","AL","NL","AL","NL","AL","NL","NL","NL","MLB","AL","AL","NL","NL","AL","MLB","NL","NL","AL","NL","NL","NL","AL","MLB","NL","AL","NL","AL","AL","MLB","AL","AL","NL","NL","NL","AL","NL","NL","NL","MLB","NL","AL","NL","AL","AL","AL","NL","AL","NL","AL","NL","AL","NL","NL","NL","NL","AL","AL","AL","NL","NL","NL","AL","AL","AL","MLB","NL","AL","AL","MLB","NL","MLB","AL","NL","NL","NL","NL","NL","AL","NL","NL","NL","AL","AL","NL","AL","NL","MLB","AL","MLB","NL","AL","AL","NL","AL","AL","NL","AL","NL","NL","NL","AL","AL","AL","NL","NL","AL","NL","NL","AL","NL","MLB","NL","MLB","AL","NL","AL","NL","NL","AL","AL","AL","NL","NL","NL","NL","NL","NL","NL","AL","AL","AL","AL","AL","NL","AL","AL","AL","NL","NL","NL","NL","NL","AL","NL","NL","AL","AL","NL","AL","MLB","NL","AL","AL","AL","AL","NL","NL","MLB","AL","NL","NL","NL","AL","NL","AL"],["All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","All","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","LHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB","RHB"],[80,116,87,80,87,112,86,118,122,74,108,99,126,111,117,114,67,116,84,113,96,98,94,101,86,131,100,92,95,90,123,91,122,74,89,120,130,111,89,92,91,72,133,105,121,129,102,114,87,118,79,88,78,68,84,130,73,96,100,82,117,133,74,106,99,119,111,82,85,113,94,95,86,104,59,103,100,69,113,129,110,114,102,85,83,99,108,91,99,118,84,69,118,122,87,85,103,79,89,110,105,100,83,94,102,94,121,95,70,102,114,110,123,110,100,111,93,96,124,103,87,81,103,117,77,113,72,90,110,109,74,81,125,89,88,131,56,105,81,93,112,103,107,90,117,122,86,144,119,100,128,86,128,109,109,106,79,105,107,129,105,85,102,110,108,103,94,114,97,77,81,68,85,98,98,80,102,97,103,104,90,112,90,95,114,94,91,90,124,100,86,100,119,97,83,128,81,97,92,86,154,89,94,116,82,108,117,96,93,95,103,78,83,92,97,105,101,104,180,71,89,90,89,110,103,141,103,87,98,87,74,90,108,95,104,88,80,98,128,118,92,79,94,115,81,91,79,103,101,104,84,126,130,82,98,132,99,89,111,91,86,97,95,124,110,83,88,99,92,154,124,139,99,111,105,107,94,96,110,85,92,104,96,110,130,86,72,86,130,114,96,78,107,83,101,110,78,94,77,76,104,126,98,96,98,97,93,117,113,74,153,99,107,73,84,85,139,123,128,84,84,87,121,77,58,66,103,128,113,86,105,124,82,133,106,132,113,100,101,104,95,109,107,98,73,110,97,77,95,106,98,89,109,101,77,79,82,122,78,72,82,76,117,92,112,74,108,121,91,102,92,87,118,113,97,85,108,95,121,113,91,131,113,109,80,82,90,118,74,113,85,102,112,103,88,119,85,64,101,117,100,136,82,116,91,141,120,76,106,96,62,103,116,88,117,85,66,113,88,144,79,109,123,90,102,109,109,127,113,87,121,77,107,76,70,82,109,110,113,96,126,95,71,109,128,81,88,89,73,120,122,107,105,98,133,91,127,94,67,92,89,88,103,79,98,107,119,89,114,115,103,87,104,71,123,95,90,92,95,98,105,85,82,119,95,83,83,93,106,103,88,82,126,107,70,114,137,78,111,109,86,131,122,123,104,110,72,102,86,95,88,116,107,118,90,101,95,82,119,66,108,106,111,108,93,62,93,90,106,107,114,105,121,78,129,75,138,96,64,95,90,114,106,88,82,116,83,95,85,122,105,121,124,93,123,92,82,108,107,90,72,100,111,99,104,92,93,105,89,113,87,94,116,139,110,88,103,82,73,116,97,99,68,106,109,78,99,77,102,85,85,113,108,75,108,109,126,85,141,118,89,86,93,107,81,93,135,116,103,94,85,90,94,127,108,79,125,101,107,109,90,112,112,72,91,101,94,92,88,129,66,111,112,110,84,121,111,90,77,111,83,101,88,111,112,118,93,87,117,114,91,98,137,106,80,84,84,105,98,96,74,95,81,96,114,137,95,96,88,108,125,80,99,111,114,135,69,85,91,102,81,106,107,111,121,83,73,112,117,94,93,117,114,109,97,120,77,108,148,121,122,76,83,102,64,90,86,108,80,103,85,108,81,83,95,127,101,101,108,80,105,98,95,94,111,106,70,84,79,84,70,113,121,104,80,99,104,108,86,105,117,94,94,124,95,133,108,104,91,105,88,93,112,114,127,107,112,102,101,92,91,65,74,81,133,140,92,114,112,124,105,89,109,89,73,68,91,107,78,96,116,82,84,66,100,109,111,101,66,125,97,98,101,102,105,104,71,133,78,128,112,100,117,99,106,97,98,93,76,107],[96,94,94,90,102,104,100,112,123,96,106,90,132,96,108,94,85,104,94,98,100,96,106,92,90,110,83,104,100,104,90,106,112,88,100,100,114,100,88,86,83,104,128,112,123,108,100,108,81,117,86,85,106,92,100,92,96,102,106,79,104,108,96,81,96,108,94,100,104,106,100,108,98,108,88,94,102,92,96,137,96,121,92,94,90,100,94,100,92,108,90,83,106,110,106,86,94,92,92,98,94,92,104,102,114,98,139,100,100,108,94,98,100,98,94,110,90,98,104,100,98,90,92,98,81,132,83,98,104,90,108,102,102,90,106,110,79,98,86,85,102,88,100,114,98,119,112,106,119,106,106,90,146,104,96,106,85,100,94,114,86,112,96,102,96,92,100,100,100,96,100,96,100,96,100,88,100,102,96,108,100,98,100,102,104,104,92,102,102,114,88,90,117,104,88,104,85,106,104,96,110,96,100,102,90,104,106,117,94,88,88,96,92,104,114,104,102,119,117,77,100,92,96,112,112,128,96,88,86,86,96,96,96,88,110,98,92,88,114,108,96,83,96,96,92,102,90,110,90,110,92,114,106,90,106,104,104,98,102,88,90,112,117,104,100,79,106,108,102,117,106,117,100,108,117,102,114,92,100,96,92,102,85,94,98,88,92,108,121,102,94,104,100,88,90,102,88,94,86,104,100,108,102,114,98,81,96,104,108,88,125,108,96,100,92,96,123,90,98,92,106,119,110,79,86,81,102,96,108,90,92,119,96,114,92,102,104,100,98,96,88,98,104,98,88,125,88,83,92,102,114,88,110,96,102,96,90,104,106,102,98,94,106,102,98,100,117,96,92,98,96,92,100,106,100,92,86,85,130,96,100,114,104,102,110,96,98,102,94,104,112,112,88,104,92,100,98,94,102,123,104,98,74,104,96,108,100,102,123,83,85,88,110,112,112,98,88,100,102,102,88,112,135,92,100,100,96,117,98,98,96,110,102,85,96,92,110,100,94,104,96,100,92,104,108,98,96,83,98,100,98,96,102,98,112,92,104,86,88,100,88,92,96,98,106,100,106,92,98,100,128,102,94,96,98,112,98,117,94,106,106,104,92,108,132,85,100,92,104,96,90,96,108,90,88,92,104,106,108,94,94,98,106,96,104,94,88,106,94,125,94,106,100,96,104,96,108,81,106,88,114,100,92,128,100,96,90,106,92,98,96,96,104,98,102,96,117,96,90,100,104,100,104,98,104,106,96,108,83,106,121,100,110,98,98,112,96,98,102,104,92,100,92,92,104,94,98,90,79,110,108,102,96,110,108,92,94,83,92,108,96,102,104,117,92,81,114,104,125,86,94,104,98,92,98,92,104,81,117,102,94,98,94,119,100,77,98,114,119,94,92,104,100,108,96,98,102,88,104,106,85,106,92,94,106,104,100,102,100,108,92,98,117,132,98,106,98,104,94,102,94,98,90,96,104,106,102,102,104,110,90,96,108,94,83,106,94,102,83,96,92,102,110,96,104,106,85,94,90,112,104,86,85,100,100,117,88,92,94,98,98,110,104,104,132,94,98,102,117,100,90,106,90,92,98,108,92,112,110,100,110,98,94,132,96,102,104,117,104,92,98,96,81,88,90,114,83,104,100,94,119,98,98,94,98,98,85,96,90,98,94,96,104,100,96,92,98,104,104,114,106,94,92,112,100,130,96,88,108,100,98,96,102,92,104,96,121,92,90,100,108,90,94,90,121,112,100,108,90,112,110,98,123,86,88,94,98,94,81,112,117,102,85,96,90,106,104,92,90,112,108,94,112,100,108,96,77,135,96,106,100,92,98,100,100,100,104,83,98,98],[373.4,368.8,377.2,373.7,383.9,370.5,373.4,370.7,375.9,373.9,366,364.2,385.6,364.8,369,374.5,377.2,367.2,379,372.3,370.4,368.7,362.1,367.7,370.3,364.4,371.1,369.8,378.7,367.4,374.5,370.4,366,373.7,378.7,367.2,364.4,364.8,377.2,371.1,364.2,383.9,375.9,373.4,385.6,372.3,370.5,369,370.3,370.7,367.7,379,362.1,373.4,367.4,368.8,373.9,368.7,369.8,377.2,370.5,364.4,373.9,371.1,370.4,369,364.8,379,369.8,367.2,366,367.4,377.2,362.1,377.2,364.2,383.9,373.4,367.7,385.6,374.5,375.9,372.3,370.3,373.7,378.7,368.8,373.4,368.7,370.7,377.2,373.9,364.8,367.2,362.1,373.7,369,377.2,370.3,364.4,371.1,367.7,373.4,379,375.9,378.7,385.6,369.8,383.9,373.4,368.8,372.3,370.5,368.7,366,370.7,370.4,367.4,364.2,374.5,367.4,377.2,366,374.5,370.3,385.6,370.4,378.7,367.2,368.7,383.9,369.8,368.8,367.7,379,364.8,373.9,364.4,377.2,373.7,372.3,369,371.1,362.1,364.2,375.9,373.4,370.5,370.7,373.4,364.2,377.2,385.6,364.8,370.5,370.7,373.9,369.8,372.3,367.2,368.8,375.9,369,368.7,367.7,371.1,374.5,364.4,370.3,377.2,373.4,383.9,362.1,366,378.7,373.7,367.4,379,370.4,373.4,365.9,370.5,377.2,373.4,368.7,378.6,367.6,365.2,369,385.6,369.9,367.4,374.6,379.1,370.4,368.9,364.2,371.3,384.1,374.2,364.5,373.4,376.4,370.9,373.7,372,365,362.1,370.8,367.5,367.5,384.1,379.1,369.9,362.1,372,378.6,385.6,364.5,364.2,365.2,370.8,373.4,376.4,365.9,374.6,367.6,373.7,368.9,368.7,374.2,373.4,369,370.5,371.3,370.4,377.2,367.4,365,370.9,374.2,370.4,370.8,370.9,365.9,365.2,373.7,379.1,367.4,374.6,376.4,368.7,369,367.6,373.4,364.5,377.2,373.4,372,367.5,364.2,385.6,362.1,370.5,365,369.9,378.6,384.1,371.3,368.9,367.6,367.5,364.2,370.9,385.6,374.5,362.1,372,365.9,371.4,370.9,365,367.4,369,368.9,370.4,379.1,378.6,364.5,368.7,376.5,373.4,373.4,373.7,370.4,369.9,374.2,370.5,377.2,384.1,370.4,367.6,364.2,378.6,376.5,367.4,371.4,373.4,369.9,373.7,367.5,385.6,365.9,384.1,370.5,370.9,364.5,369,368.7,372,373.4,362.1,374.5,370.4,379.1,377.2,365,368.9,370.9,374.2,372,364.5,379.1,367.5,370.4,368.9,365.9,364.2,373.4,369,367.4,369.9,368.7,374.5,374.2,385.6,370.9,370.4,376.5,365,362.1,373.7,370.9,370.5,378.6,371.4,377.2,367.6,384.1,373.4,375.5,370.4,370.5,373.4,364.2,371.4,362.1,372,373.7,373.4,377.2,365.9,374.5,365,369.9,370.9,367.4,370.5,385.6,369,374.2,364.5,370.9,368.7,384.1,378.6,367.5,369,379.1,376.5,384.1,370.9,369,365.9,373.4,364.2,370.4,379.1,369.9,385.6,374.2,372,367.4,369,370.9,364.5,365,371.4,362.1,373.7,377.2,370.5,373.4,367.5,376.5,375.5,378.6,368.7,370.5,374.5,370.9,362.1,385.6,367.5,374.5,373.4,364.2,364.5,369,374.2,370.9,384.1,368.7,365.9,373.4,379.1,365,376.5,372,378.6,367.4,369.9,370.4,377.2,370.5,375.5,373.7,370.5,371.4,369,369,371.9,367.1,368.7,376.4,375.5,364.4,367.4,365.9,364.2,371.5,370.4,373.8,378.8,377.2,370,373.6,370.5,365,374.6,385.5,374.7,369.5,373.4,368.8,383.1,376.7,362.2,365.2,371,374.7,364.2,368.7,365,362.2,371.5,378.8,365.2,370,369.5,370.4,373.4,376.4,374.6,365.9,369,364.4,383.1,377.2,371.9,376.7,368.8,373.6,375.5,367.1,367.4,370.5,371,373.8,385.5,370.4,373.6,368.7,368.8,362.2,370.5,371,367.4,374.6,375.5,383.1,367.1,365,385.5,376.7,373.4,371.5,377.2,369.5,370,373.8,371.9,364.4,374.7,369,378.8,376.4,365.2,365.9,364.2,373.2,365.1,365.9,373.6,383.9,364.2,377.2,374.2,367.5,368.8,385.5,369,364.3,370.9,370.8,379.9,370.5,369.5,374.6,362,371.3,365.2,371.6,373.9,375.3,376.5,368.8,376.5,367.4,369.9,362,370.9,369,365.1,369.9,373.6,376.5,369.5,371.3,365.9,365.2,368.8,383.9,373.2,371.6,367.5,374.2,379.9,385.5,373.9,377.2,368.8,374.6,370.5,370.8,376.5,364.2,367.4,364.3,375.3,368.8,370.5,370.9,385.5,377.2,367.4,370.8,369.9,379.9,365.1,376.5,375.3,365.9,369.5,373.9,373.2,369,376.5,374.6,364.2,367.5,364.3,371.6,371.3,383.9,365.2,362,374.2,373.6,368.8,373.2,368.8,372.6,385.5,371.3,370.7,364.3,379.9,377.2,374.6,383.9,369.5,365.9,367.5,368.4,365.2,370.9,369.9,365.1,376.5,370.8,371.6,369,364.2,376.5,362,374.2,373.6,367.4,368.8,377.2,370.9,362,364.3,373.6,365.1,367.4,368.4,370.8,376.5,369,376.5,365.9,364.2,365.2,370.7,373.2,371.6,374.2,374.6,371.3,369.5,367.5,368.8,385.5,383.9,379.9,368.8,372.6,369.9,370.8,374.6,367.5,368.8,373.6,376.5,374.2,379.9,369,364.3,365.2,365.9,383.9,385.5,373.2,370.9,362,372.6,369.9,364.2,371.3,370.7,376.5,368.8,369.5,368.4,367.4,365.1,371.6,377.2,385.5,371.6,365.2,369.5,369,364.3,374.6,365.9,371.3,369.9,377.2,364.2,368.8,368.8,374.2,376.5,370.7,365.1,362,377.9,367.5,376.5,370.8,370.9,379.9,372.6,373.9,367.4,373.2,373.6,365.9,379.9,373.6,367.4,367.5,364.2,373.2,368.8,376.5,374.2,362,377.2,371.3,376.5,372.6,368.8,371.6,364.3,369,370.9,365.1,369.5,385.5,373.9,369.9,374.6,365.2,370.7,370.8,377.9,377.9,362,371.3,373.2,369.5,367.5,369,368.8,374.2,370.9,369.9,376.5,385.5,370.7,368.8,371.6,374.6,372.6,365.9,373.9,365.1,364.3,364.2,365.2,370.8,373.6,379.9,367.4,377.2,376.5],[334.6,326.3,334.9,313.2,328,328,324.2,336.3,331.7,339.8,324.9,314.7,347.2,328.6,317.5,329.4,343.7,332.7,341.3,341.1,334.6,328.4,308.4,331.1,329.3,327.7,334.9,338.2,329.6,352.4,329.4,334.6,324.9,313.2,329.6,332.7,327.7,328.6,334.9,334.9,314.7,328,331.7,324.2,347.2,341.1,328,317.5,329.3,336.3,331.1,341.3,308.4,334.6,352.4,326.3,339.8,328.4,338.2,343.7,328,327.7,339.8,334.9,334.6,317.5,328.6,341.3,338.2,332.7,324.9,352.4,334.9,308.4,343.7,314.7,328,324.2,331.1,347.2,329.4,331.7,341.1,329.3,313.2,329.6,326.3,334.6,328.4,336.3,334.9,339.8,328.6,332.7,308.4,313.2,317.5,343.7,329.3,327.7,334.9,331.1,324.2,341.3,331.7,329.6,347.2,338.2,328,334.6,326.3,341.1,328,328.4,324.9,336.3,334.6,352.4,314.7,329.4,352.4,334.9,324.9,329.4,329.3,347.2,334.6,329.6,332.7,328.4,328,338.2,326.3,331.1,341.3,328.6,339.8,327.7,343.7,313.2,341.1,317.5,334.9,308.4,314.7,331.7,324.2,328,336.3,334.6,314.7,334.9,347.2,328.6,328,336.3,339.8,338.2,341.1,332.7,326.3,331.7,317.5,328.4,331.1,334.9,329.4,327.7,329.3,343.7,324.2,328,308.4,324.9,329.6,313.2,352.4,341.3,334.6,334.6,324.8,334.6,335.3,334.7,328.4,329.5,352.4,325.2,317.5,347,338.3,330.6,329.2,341.2,329.3,326.4,314.7,339.8,326.9,343.8,328,324.2,328.2,334.9,313.2,341.2,328.4,308.5,336.4,332.9,332.9,326.9,341.2,338.3,308.5,341.2,329.5,347,328,314.7,325.2,336.4,324.2,328.2,324.8,329.2,352.4,313.2,326.4,328.4,343.8,334.7,317.5,334.6,339.8,329.3,335.3,330.6,328.4,334.9,343.8,329.3,336.4,334.9,324.8,325.2,313.2,341.2,330.6,329.2,328.2,328.4,317.5,352.4,334.7,328,335.3,324.2,341.2,332.9,314.7,347,308.5,334.6,328.4,338.3,329.5,326.9,339.8,326.4,352.4,332.9,314.7,336.3,347,329.3,308.5,341.2,324.8,339.8,334.9,328.4,330.7,317.4,326.5,329.3,341.3,329.6,328,328.4,328.3,324.3,334.7,313.1,328.1,338.3,343.7,334.6,335.3,326.9,329.3,352.4,314.7,329.6,328.3,330.7,339.8,334.7,338.3,313.1,332.9,347,324.8,326.9,334.6,334.9,328,317.4,328.4,341.2,324.3,308.5,329.3,328.1,341.3,335.3,328.4,326.5,336.3,343.7,341.2,328,341.3,332.9,328.1,326.5,324.8,314.7,334.7,317.4,330.7,338.3,328.4,329.3,343.7,347,334.9,329.3,328.3,328.4,308.5,313.1,336.3,334.6,329.6,339.8,335.3,352.4,326.9,324.3,332.8,329.3,328.1,324.3,314.7,339.8,308.5,341.2,313.1,334.7,335.3,324.8,329.2,328.4,338.3,334.9,330.7,334.6,347,317.4,343.7,328,336.3,328.4,326.9,329.6,349.7,326.5,341.3,328.3,326.9,336.3,317.4,324.8,334.7,314.7,329.3,341.3,338.3,347,343.7,341.2,330.7,326.5,334.9,328,328.4,339.8,308.5,313.1,335.3,334.6,324.3,349.7,328.3,332.8,329.6,328.4,328.1,329.2,334.9,308.5,347,349.7,329.2,334.7,314.7,328,317.4,343.7,336.3,326.9,328.4,324.8,324.3,341.3,328.4,328.3,341.2,329.6,330.7,338.3,329.3,335.3,328.1,332.8,313.1,334.6,339.8,326.5,326.5,341.1,349.1,328.3,328.2,332.8,328.1,330.6,324.8,314.7,339.8,329.3,313.2,329.6,335.1,338.4,334.7,334.7,328.5,330.6,347,343.8,334.3,324.3,317.5,325.7,341.3,307.9,328.1,336.5,343.8,314.7,328.3,328.5,307.9,339.8,329.6,328.1,338.4,334.3,329.3,324.3,328.2,330.6,324.8,326.5,328.1,325.7,335.1,341.1,341.3,317.5,334.7,332.8,349.1,330.6,334.7,336.5,313.2,347,329.3,334.7,328.3,317.5,307.9,334.7,336.5,330.6,330.6,332.8,325.7,349.1,328.5,347,341.3,324.3,339.8,335.1,334.3,338.4,313.2,341.1,328.1,343.8,326.5,329.6,328.2,328.1,324.8,314.7,324.4,328.3,324.8,334.7,324.4,314.7,334.8,343.8,354.2,317.5,346.9,326.5,327.8,336.3,334.6,328.7,329.5,334.3,329.6,308.5,339.8,328.1,340.8,313.2,332.9,342.7,328.4,328.2,330.7,338.3,308.5,336.3,326.5,328.3,338.3,334.7,342.7,334.3,339.8,324.8,328.1,328.4,324.4,324.4,340.8,354.2,343.8,328.7,346.9,313.2,334.8,317.5,329.6,329.5,334.6,328.2,314.7,330.7,327.8,332.9,328.4,329.5,336.3,346.9,334.8,330.7,334.6,338.3,328.7,328.3,342.7,332.9,324.8,334.3,313.2,324.4,326.5,328.2,329.6,314.7,354.2,327.8,340.8,339.8,324.4,328.1,308.5,343.8,334.7,317.5,324.4,317.5,330.2,346.9,339.8,332.9,327.8,328.7,334.8,329.6,324.4,334.3,324.8,354.2,318.7,328.1,336.3,338.3,328.3,342.7,334.6,340.8,326.5,314.7,328.2,308.5,343.8,334.7,330.7,328.4,334.8,336.3,308.5,327.8,334.7,328.3,330.7,318.7,334.6,342.7,326.5,328.2,324.8,314.7,328.1,332.9,324.4,340.8,343.8,329.6,339.8,334.3,354.2,328.4,346.9,324.4,328.7,317.5,330.2,338.3,334.6,329.6,354.2,317.5,334.7,342.7,343.8,328.7,326.5,327.8,328.1,324.8,324.4,346.9,324.4,336.3,308.5,330.2,338.3,314.7,339.8,332.9,328.2,328.4,334.3,318.7,330.7,328.3,340.8,334.8,346.9,340.8,328.1,334.3,326.5,327.8,329.6,324.8,339.8,338.3,334.8,314.7,317.5,328.4,343.8,328.2,332.9,328.3,308.5,325.2,354.2,342.7,334.6,336.3,328.7,330.2,313.2,330.7,324.4,334.7,324.8,328.7,334.7,330.7,354.2,314.7,324.4,328.4,328.2,343.8,308.5,334.8,339.8,342.7,330.2,317.5,340.8,327.8,326.5,336.3,328.3,334.3,346.9,313.2,338.3,329.6,328.1,332.9,334.6,325.2,325.2,308.5,339.8,324.4,334.3,354.2,326.5,317.5,343.8,336.3,338.3,328.2,346.9,332.9,328.4,340.8,329.6,330.2,324.8,313.2,328.3,327.8,314.7,328.1,334.6,334.7,328.7,330.7,334.8,342.7],[399.9,395,399.4,403.9,410.1,400.1,398.4,402.1,398.6,398.7,400,409.2,414.7,401.6,407.9,398.3,406.2,398.9,421.7,399.5,395.6,399.7,389.1,400.9,399.2,403.8,407.8,403.9,404.7,397.2,398.3,395.6,400,403.9,404.7,398.9,403.8,401.6,399.4,407.8,409.2,410.1,398.6,398.4,414.7,399.5,400.1,407.9,399.2,402.1,400.9,421.7,389.1,399.9,397.2,395,398.7,399.7,403.9,406.2,400.1,403.8,398.7,407.8,395.6,407.9,401.6,421.7,403.9,398.9,400,397.2,399.4,389.1,406.2,409.2,410.1,398.4,400.9,414.7,398.3,398.6,399.5,399.2,403.9,404.7,395,399.9,399.7,402.1,399.4,398.7,401.6,398.9,389.1,403.9,407.9,406.2,399.2,403.8,407.8,400.9,398.4,421.7,398.6,404.7,414.7,403.9,410.1,399.9,395,399.5,400.1,399.7,400,402.1,395.6,397.2,409.2,398.3,397.2,399.4,400,398.3,399.2,414.7,395.6,404.7,398.9,399.7,410.1,403.9,395,400.9,421.7,401.6,398.7,403.8,406.2,403.9,399.5,407.9,407.8,389.1,409.2,398.6,398.4,400.1,402.1,399.9,409.2,399.4,414.7,401.6,400.1,402.1,398.7,403.9,399.5,398.9,395,398.6,407.9,399.7,400.9,407.8,398.3,403.8,399.2,406.2,398.4,410.1,389.1,400,404.7,403.9,397.2,421.7,395.6,399.9,400,395.7,399.5,400,399.9,404.6,397,396.4,408,414.7,403.9,400.7,398.3,421.7,399.2,394.8,409.4,391.2,410.1,396.3,403.8,398.4,406.2,407.6,403.9,399.5,401.5,388.9,402.3,399.2,399.2,410.1,421.7,403.9,388.9,399.5,404.6,414.7,403.8,409.4,396.4,402.3,398.4,406.2,400,398.3,397,403.9,394.8,399.9,396.3,400,408,395.7,391.2,399.2,399.5,400.7,401.5,407.6,396.3,399.2,402.3,407.6,400,396.4,403.9,421.7,400.7,398.3,406.2,399.9,408,397,400,403.8,399.5,398.4,399.5,399.2,409.4,414.7,388.9,395.7,401.5,403.9,404.6,410.1,391.2,394.8,397,399.1,409.4,402.2,414.7,398.2,389.1,399.5,400,391.3,407.6,401.5,400.7,408,394.8,399.2,421.8,404.6,403.8,399.9,406.3,398.4,400,403.6,399.9,403.9,396.3,395.7,399.5,410.1,399.2,397,409.4,404.6,406.3,400.7,391.3,400,403.9,403.6,399.1,414.7,400,410.1,395.7,407.6,403.8,408,399.9,399.5,398.4,389.1,398.2,399.9,421.8,399.5,401.5,394.8,402.2,396.3,399.5,403.8,421.8,399.1,399.9,394.8,400,409.4,400,408,400.7,403.9,399.9,398.2,396.3,414.7,407.6,399.2,406.3,401.5,389.1,403.6,402.2,395.7,404.6,391.3,399.5,397,410.1,398.4,399.1,399.2,400,398.4,409.4,391.3,389.1,399.5,403.6,400,399.5,400,398.3,401.4,403.9,407.6,400.7,395.5,414.7,408,396.3,403.8,402.2,399.9,410.1,404.6,397.1,395,421.8,406.3,410.1,402.2,408,400,400,409.4,399.2,421.8,403.9,414.7,396.3,399.5,400.7,395,407.6,403.8,401.4,391.3,389.1,403.6,399.5,395.5,398.4,397.1,406.3,399.1,404.6,399.9,400,398.3,407.6,389.1,414.7,397.1,398.3,400,409.4,403.8,408,396.3,402.2,410.1,399.9,400,398.4,421.8,401.4,406.3,399.5,404.6,400.7,403.9,399.2,399.5,400,399.1,403.6,395.5,391.3,395,394.9,399.3,397.6,399.8,406.2,398.9,403.9,400.6,400,409.1,391.3,400,403.8,404.6,399.5,404.2,400,395.6,401.4,398.4,414.5,396.7,407.5,398.3,407.4,408.6,412.5,389.1,400.1,402.2,396.7,409.1,399.8,401.4,389.1,391.3,404.6,400.1,404.2,407.5,400,398.3,406.2,398.4,400,394.9,403.9,408.6,399.5,399.3,412.5,407.4,400,398.9,397.6,400.6,395.6,402.2,403.8,414.5,400,400,399.8,407.4,389.1,395.6,402.2,400.6,398.4,398.9,408.6,397.6,401.4,414.5,412.5,398.3,391.3,399.5,407.5,404.2,403.8,399.3,403.9,396.7,394.9,404.6,406.2,400.1,400,409.1,398.3,401.8,400,400,410.1,409.1,399.6,396.3,397.2,408,414.7,394.9,403.6,401.6,395.9,406.3,399.4,407.4,398.3,388.5,391.2,400,399.1,404,398.8,412.3,400,406.3,400.7,403.8,388.5,401.6,394.9,401.8,403.8,400,412.3,407.4,391.2,400,400,400,410.1,398.3,399.1,397.2,396.3,406.3,414.7,404,399.6,408,398.3,399.4,395.9,406.3,409.1,400.7,403.6,398.8,400,399.4,401.6,414.7,399.6,400.7,395.9,403.8,406.3,401.8,412.3,398.8,400,407.4,404,398.3,394.9,406.3,398.3,409.1,397.2,403.6,399.1,391.2,410.1,400,388.5,396.3,400,408,398.3,408,401.3,414.7,391.2,399.6,403.6,406.3,399.6,398.3,410.1,407.4,400,397.2,407.4,400,401.6,403.8,401.8,412.3,395.9,399.1,394.9,409.1,406.3,388.5,396.3,400,400.7,400,399.6,401.6,388.5,403.6,400,401.8,400.7,407.4,395.9,412.3,394.9,406.3,400,409.1,400,399.6,398.3,399.1,396.3,398.3,391.2,407.4,397.2,400,414.7,410.1,406.3,408,401.3,403.8,395.9,398.3,397.2,408,400,412.3,396.3,406.3,394.9,403.6,400,400,410.1,414.7,398.3,401.6,388.5,401.3,403.8,409.1,391.2,399.6,406.3,400,407.4,407.4,400.7,401.8,399.1,399.6,414.7,399.1,400,407.4,394.9,403.6,398.3,400,391.2,403.8,399.6,409.1,408,400,396.3,406.3,399.6,401.8,388.5,410.1,397.2,412.3,395.9,401.6,406.3,401.3,404,400.7,398.3,400,400,406.3,400,400.7,397.2,409.1,398.3,400,406.3,396.3,388.5,399.6,391.2,412.3,401.3,408,399.1,403.6,394.9,401.6,401.8,407.4,414.7,404,403.8,398.3,400,399.6,395.9,410.1,410.1,388.5,391.2,398.3,407.4,397.2,394.9,408,396.3,401.6,403.8,406.3,414.7,399.6,400,399.1,398.3,401.3,400,404,401.8,403.6,409.1,400,395.9,400,406.3,400.7,399.6,412.3],[324.8,326.5,335.1,320,327.6,328.4,319.6,334.8,323.6,304,324.6,325.5,350.5,329.6,313.5,329.5,334.4,317.5,328.2,344.6,321.6,334.6,299.5,327.3,329.7,324.5,329.8,327.8,333,349.2,329.5,321.6,324.6,320,333,317.5,324.5,329.6,335.1,329.8,325.5,327.6,323.6,319.6,350.5,344.6,328.4,313.5,329.7,334.8,327.3,328.2,299.5,324.8,349.2,326.5,304,334.6,327.8,334.4,328.4,324.5,304,329.8,321.6,313.5,329.6,328.2,327.8,317.5,324.6,349.2,335.1,299.5,334.4,325.5,327.6,319.6,327.3,350.5,329.5,323.6,344.6,329.7,320,333,326.5,324.8,334.6,334.8,335.1,304,329.6,317.5,299.5,320,313.5,334.4,329.7,324.5,329.8,327.3,319.6,328.2,323.6,333,350.5,327.8,327.6,324.8,326.5,344.6,328.4,334.6,324.6,334.8,321.6,349.2,325.5,329.5,349.2,335.1,324.6,329.5,329.7,350.5,321.6,333,317.5,334.6,327.6,327.8,326.5,327.3,328.2,329.6,304,324.5,334.4,320,344.6,313.5,329.8,299.5,325.5,323.6,319.6,328.4,334.8,324.8,325.5,335.1,350.5,329.6,328.4,334.8,304,327.8,344.6,317.5,326.5,323.6,313.5,334.6,327.3,329.8,329.5,324.5,329.7,334.4,319.6,327.6,299.5,324.6,333,320,349.2,328.2,321.6,324.8,324.6,322.8,335,324.8,334.6,333.3,349.3,325.1,313.5,350.9,327.9,326.9,329.7,328.3,329.7,326.5,325.5,304.1,328.3,334.5,324.6,319.6,321.2,329.8,320,344.6,329.6,299.9,334.9,317.5,317.5,328.3,328.3,327.9,299.9,344.6,333.3,350.9,324.6,325.5,325.1,334.9,319.6,321.2,324.6,329.7,349.3,320,326.5,334.6,334.5,324.8,313.5,322.8,304.1,329.7,335,326.9,329.6,329.8,334.5,329.7,334.9,329.8,324.6,325.1,320,328.3,326.9,329.7,321.2,334.6,313.5,349.3,324.8,324.6,335,319.6,344.6,317.5,325.5,350.9,299.9,322.8,329.6,327.9,333.3,328.3,304.1,326.5,349.3,317.5,325.5,334.9,350.9,329.8,297.2,344.6,324.6,304.1,329.8,329.5,326.9,313.4,326.5,329.7,328.3,333.1,324.6,334.6,321.1,319.6,324.8,320.1,328.3,327.9,334.5,322.8,335,328.3,329.7,349.3,325.5,333.1,321.1,326.9,304.1,324.8,327.9,320.1,317.5,350.9,324.6,328.3,322.8,329.8,324.6,313.4,334.6,344.6,319.6,297.2,329.8,328.3,328.3,335,329.5,326.5,334.9,334.5,344.6,324.6,328.3,317.5,328.3,326.5,324.6,325.5,324.8,313.4,326.9,327.9,334.6,329.8,334.5,350.9,329.8,329.7,321.1,329.5,297.2,320.1,334.9,322.8,333.1,304.1,335,349.3,328.3,319.6,317.6,329.7,328.3,319.6,325.5,304.1,297.2,344.6,320.1,324.8,335,324.6,329.7,329.5,327.9,329.8,326.9,322.5,350.9,313.4,334.5,324.6,334.9,334.6,328.3,333.1,349.3,326.4,328.3,321.1,328.3,334.9,313.4,324.6,324.8,325.5,329.7,328.3,327.9,350.9,334.5,344.6,326.9,326.4,329.8,324.6,329.5,304.1,297.2,320.1,335,322.5,319.6,349.3,321.1,317.6,333.1,334.6,328.3,329.7,329.8,297.2,350.9,349.3,329.7,324.8,325.5,324.6,313.4,334.5,334.9,328.3,334.6,324.6,319.6,328.3,329.5,321.1,344.6,333.1,326.9,327.9,329.7,335,328.3,317.6,320.1,322.5,304.1,326.4,326.3,344.6,349.2,334.4,321.2,317.7,324.6,326.8,324.6,325.5,304,329.8,320,333.1,335.1,327.9,326,321.1,329.6,329.9,350.3,334.6,329.5,319.6,313.5,325.9,328.3,298.6,328.3,335,334.6,325.5,334.4,329.6,298.6,304,333.1,328.3,327.9,329.5,329.8,319.6,321.2,329.9,324.6,326.3,324.6,325.9,335.1,344.6,328.3,313.5,326,317.7,349.2,326.8,321.1,335,320,350.3,329.8,326,334.4,313.5,298.6,321.1,335,326.8,329.9,317.7,325.9,349.2,329.6,350.3,328.3,319.6,304,335.1,329.5,327.9,320,344.6,324.6,334.6,326.3,333.1,321.2,328.3,324.6,325.5,319.5,329.6,324.6,326,326.3,325.5,334.9,334.6,349.2,313.4,350.8,326.3,324.4,334.9,321.8,333.7,329.7,329.5,329.6,299.3,304.1,328.3,344.5,319.9,317.2,327.4,334.6,321.2,326.9,327.9,299.3,334.9,326.3,329.6,327.9,326,327.4,329.5,304.1,324.6,328.3,334.6,326.3,319.5,344.5,349.2,334.6,333.7,350.8,319.9,334.9,313.4,329.6,329.7,321.8,321.2,325.5,326.9,324.4,317.2,334.6,329.7,334.9,350.8,334.9,326.9,321.8,327.9,333.7,329.6,327.4,317.2,324.6,329.5,319.9,319.5,326.3,321.2,329.6,325.5,349.2,324.4,344.5,304.1,326.3,328.3,299.3,334.6,326,313.4,319.5,313.4,324.5,350.8,304.1,317.8,324.4,333.7,334.9,329.6,326.3,329.5,324.6,349.2,314,328.3,334.9,327.9,329.6,327.4,321.8,344.5,326.3,325.5,321.2,299.3,334.6,326,326.9,334.6,334.9,334.9,299.3,324.4,326,329.6,326.9,314,321.8,327.4,326.3,321.2,324.6,325.5,328.3,317.8,319.5,344.5,334.6,329.6,304.1,329.5,349.2,334.6,350.8,326.3,333.7,313.4,324.5,327.9,321.8,329.6,349.2,313.4,326,327.4,334.6,333.7,326.3,324.4,328.3,324.6,326.3,350.8,319.5,334.9,299.3,324.5,327.9,325.5,304.1,317.8,321.2,334.6,329.5,314,326.9,329.6,344.5,334.9,350.8,344.5,328.3,329.5,326.3,324.4,329.6,324.6,304.1,327.9,334.9,325.5,313.4,334.6,334.6,321.2,317.8,329.6,299.3,326.2,349.2,327.4,321.8,334.9,333.7,324.5,319.9,326.9,319.5,326,324.6,333.7,326,326.9,349.2,325.5,319.5,334.6,321.2,334.6,299.3,334.9,304.1,327.4,324.5,313.4,344.5,324.4,326.3,334.9,329.6,329.5,350.8,319.9,327.9,329.6,328.3,317.8,321.8,326.2,326.2,299.3,304.1,319.5,329.5,349.2,326.3,313.4,334.6,334.9,327.9,321.2,350.8,317.8,334.6,344.5,329.6,324.5,324.6,319.9,329.6,324.4,325.5,328.3,321.8,326,333.7,326.9,334.9,327.4],[15.6,8,7.5,11.5,9.9,10,22.7,16.4,12.1,23.8,20.3,23.9,16.1,17,8.199999999999999,6.8,11.2,20.1,13.3,7.1,9.1,7,37.1,7.6,15.4,11.7,12.2,23.2,24.5,11.4,6.8,9.1,20.3,11.5,24.5,20.1,11.7,17,7.5,12.2,23.9,9.9,12.1,22.7,16.1,7.1,10,8.199999999999999,15.4,16.4,7.6,13.3,37.1,15.6,11.4,8,23.8,7,23.2,11.2,10,11.7,23.8,12.2,9.1,8.199999999999999,17,13.3,23.2,20.1,20.3,11.4,7.5,37.1,11.2,23.9,9.9,22.7,7.6,16.1,6.8,12.1,7.1,15.4,11.5,24.5,8,15.6,7,16.4,7.5,23.8,17,20.1,37.1,11.5,8.199999999999999,11.2,15.4,11.7,12.2,7.6,22.7,13.3,12.1,24.5,16.1,23.2,9.9,15.6,8,7.1,10,7,20.3,16.4,9.1,11.4,23.9,6.8,11.4,7.5,20.3,6.8,15.4,16.1,9.1,24.5,20.1,7,9.9,23.2,8,7.6,13.3,17,23.8,11.7,11.2,11.5,7.1,8.199999999999999,12.2,37.1,23.9,12.1,22.7,10,16.4,15.6,23.9,7.5,16.1,17,10,16.4,23.8,23.2,7.1,20.1,8,12.1,8.199999999999999,7,7.6,12.2,6.8,11.7,15.4,11.2,22.7,9.9,37.1,20.3,24.5,11.5,11.4,13.3,9.1,15.6,20.3,11.1,7.6,15.6,6.8,24.5,11.5,10.5,8.1,16.1,23.1,7.6,6.8,13.1,15.5,7.9,27.9,24.1,10.1,11.1,11.7,22.7,9.800000000000001,12.1,11.5,7.1,17,36.8,16.1,20,20,10.1,13.1,23.1,36.8,7.1,24.5,16.1,11.7,27.9,10.5,16.1,22.7,9.800000000000001,20.3,6.8,11.5,11.5,7.9,6.8,11.1,15.6,8.1,11.1,24.1,15.5,7.6,7.6,17,12.1,11.1,15.5,16.1,12.1,20.3,10.5,11.5,13.1,7.6,6.8,9.800000000000001,6.8,8.1,11.5,15.6,11.7,7.6,22.7,7.1,20,27.9,16.1,36.8,11.1,17,23.1,24.5,10.1,24.1,7.9,11.5,19.9,27.9,16.3,16.3,6.9,37.2,7.1,20.3,23.8,12.1,17.1,7.6,8.300000000000001,7.9,15.4,13.1,24.7,11.8,6.8,9.9,22.7,15.4,11.6,10,23.1,11.3,11.1,7.6,10.1,15.4,11.5,27.9,24.7,9.9,7.6,23.8,15.4,23.1,11.6,19.9,16.3,20.3,10.1,11.1,12.1,11.8,8.300000000000001,6.8,7.1,22.7,37.2,6.9,10,13.1,7.6,17.1,7.9,16.3,11.3,7.1,11.8,13.1,19.9,10,7.9,20.3,27.9,15.4,8.300000000000001,7.6,23.1,6.8,6.9,11.3,16.3,12.1,15.4,9.9,17.1,37.2,11.6,16.3,11.1,24.7,23.8,7.6,11.5,10.1,22.7,20,15.4,10,22.7,27.9,23.8,37.2,7.1,11.6,15.4,7.6,20.3,6.8,16.9,23.1,12.1,7.6,11.5,16.3,8.300000000000001,11.3,11.8,16.3,6.8,10.1,24.7,11.5,7.9,13.1,9.9,10.1,16.3,8.300000000000001,20.3,15.4,27.9,15.4,13.1,23.1,16.3,11.3,7.1,7.6,7.9,12.1,11.8,16.9,23.8,37.2,11.6,7.6,11.5,22.7,11.5,9.9,20,24.7,6.8,10,6.8,12.1,37.2,16.3,11.5,6.8,15.4,27.9,11.8,8.300000000000001,11.3,16.3,10.1,6.8,20.3,22.7,13.1,16.9,9.9,7.1,24.7,7.6,23.1,15.4,7.6,10,20,11.6,11.5,23.8,7.9,7.7,7.3,11.5,6.8,9.800000000000001,20.1,11.7,7.8,20.2,24.2,23.7,15.3,11.5,24.6,7.6,23.1,15.3,11.3,16.9,6.6,16.1,11.1,9.699999999999999,22.5,8.5,8.9,9.199999999999999,37.4,14.2,16.3,11.1,24.2,6.8,16.9,37.4,23.7,24.6,14.2,23.1,9.699999999999999,15.3,22.5,9.800000000000001,6.6,20.2,7.7,11.7,8.9,7.6,7.3,9.199999999999999,8.5,15.3,20.1,11.5,7.8,11.3,16.3,11.5,16.1,15.3,15.3,6.8,8.5,37.4,11.3,16.3,7.8,6.6,20.1,8.9,11.5,16.9,16.1,9.199999999999999,22.5,23.7,7.6,9.699999999999999,23.1,11.5,7.3,11.7,11.1,7.7,24.6,9.800000000000001,14.2,20.2,24.2,22.1,16.9,20.1,15.3,10.1,24.2,7.5,11.2,11.4,8.5,16.2,7.7,11.8,16.3,10.4,24.5,15.3,9.800000000000001,6.7,37.3,23.8,14.2,14.8,11.3,20.1,9,6.9,9.699999999999999,7.7,23.1,37.3,16.3,7.7,16.9,23.1,15.3,9,9.800000000000001,23.8,20.1,14.2,6.9,10.1,22.1,14.8,11.4,11.2,24.5,16.2,11.3,7.5,8.5,6.7,15.3,10.4,9.699999999999999,24.2,7.7,11.8,20.1,6.9,15.3,16.3,16.2,7.5,7.7,10.4,23.1,24.5,16.9,9,20.1,20.1,9.800000000000001,11.3,22.1,7.7,9.699999999999999,6.7,24.2,11.4,11.8,14.8,23.8,10.1,14.2,37.3,11.2,15.3,8.5,22.1,8.5,13.3,16.2,23.8,19.9,11.8,24.5,7.5,6.7,10.1,9.800000000000001,20.1,11.4,6.6,14.2,16.3,23.1,16.9,9,10.4,14.8,7.7,24.2,9.699999999999999,37.3,11.2,15.3,7.7,6.9,7.5,16.3,37.3,11.8,15.3,16.9,7.7,6.6,10.4,9,7.7,9.699999999999999,20.1,24.2,14.2,19.9,22.1,14.8,11.2,6.7,23.8,9.800000000000001,11.4,6.9,16.2,10.1,24.5,8.5,13.3,23.1,10.4,6.7,11.4,8.5,15.3,9,11.2,24.5,7.7,11.8,14.2,20.1,10.1,16.2,22.1,16.3,37.3,13.3,23.1,24.2,23.8,19.9,9.699999999999999,6.9,9.800000000000001,6.6,7.7,16.9,14.8,7.5,16.2,14.8,14.2,9.800000000000001,7.7,11.8,6.7,20.1,23.8,23.1,7.5,24.2,8.5,6.9,11.2,9.699999999999999,19.9,16.9,37.3,8.1,11.4,9,10.4,16.3,24.5,13.3,11.3,7.7,22.1,15.3,20.1,24.5,15.3,7.7,11.4,24.2,22.1,6.9,9.699999999999999,11.2,37.3,7.5,23.8,9,13.3,8.5,14.8,11.8,7.7,16.3,16.9,9.800000000000001,16.2,11.3,23.1,6.7,14.2,19.9,10.4,8.1,8.1,37.3,23.8,22.1,9.800000000000001,11.4,7.7,8.5,11.2,16.3,23.1,9.699999999999999,16.2,19.9,6.9,14.8,6.7,13.3,20.1,11.3,16.9,11.8,24.2,14.2,10.4,15.3,24.5,7.7,7.5,9],[980,510,465,45,750,270,725,25,0,11,660,0,5197,20,54,160,10,30,600,600,15,0,20,10,10,490,13,840,1059,600,160,15,660,45,1059,30,490,20,465,13,0,750,0,725,5197,600,270,54,10,25,10,600,20,980,600,510,11,0,840,10,270,490,11,13,15,54,20,600,840,30,660,600,465,20,10,0,750,725,10,5197,160,0,600,10,45,1059,510,980,0,25,465,11,20,30,20,45,54,10,10,490,13,10,725,600,0,1059,5197,840,750,980,510,600,270,0,660,25,15,600,0,160,600,465,660,160,10,5197,15,1059,30,0,750,840,510,10,600,20,11,490,10,45,600,54,13,20,0,0,725,270,25,980,0,465,5197,20,270,25,11,840,600,30,510,0,54,0,10,13,160,490,10,10,725,750,20,660,1059,45,600,600,15,980,660,15,465,980,0,1059,600,0,54,5197,840,10,160,600,10,510,0,11,750,10,490,725,550,13,45,600,20,20,25,30,30,750,600,840,20,600,1059,5197,490,0,0,25,725,550,660,160,600,45,510,0,10,980,54,15,11,10,465,10,20,13,10,10,25,13,660,0,45,600,10,160,550,0,54,600,980,490,465,725,600,30,0,5197,20,15,20,840,1059,750,11,510,600,30,0,25,5197,160,20,600,660,11,13,20,10,54,510,10,600,1059,490,0,550,725,980,45,270,840,10,15,465,750,10,600,0,1059,550,10,11,980,840,45,30,5197,660,750,15,13,490,54,0,600,725,20,160,270,600,465,20,510,25,10,600,490,600,30,270,510,660,0,980,54,10,840,0,160,10,5197,13,10,550,20,20,45,25,15,1059,11,465,600,750,725,30,10,270,725,0,11,20,600,45,980,465,660,160,20,840,13,10,15,5197,54,10,490,25,0,750,1059,600,510,600,550,750,25,54,660,980,0,10,600,840,5197,10,600,10,510,13,490,20,11,20,45,465,15,725,600,550,30,1059,0,270,160,13,20,5197,600,160,980,0,490,54,10,25,750,0,660,725,600,20,550,600,1059,10,840,10,465,270,30,45,15,11,510,510,600,600,0,550,30,490,10,660,0,11,10,45,1059,465,840,980,15,20,160,5197,10,13,725,54,750,600,20,270,25,10,0,0,20,20,11,1059,270,840,13,10,725,550,160,660,510,490,750,465,600,600,54,980,30,600,10,15,25,45,5197,10,980,0,54,20,15,25,10,160,30,750,600,20,5197,600,725,11,465,13,840,45,600,490,10,510,1059,550,270,660,0,725,20,660,980,750,0,465,10,600,54,5197,510,490,25,15,1059,10,13,160,20,11,270,600,45,30,600,0,550,10,840,20,25,510,20,840,980,600,13,11,660,270,0,750,725,600,600,10,1059,5197,45,465,54,160,10,15,550,0,10,490,30,0,10,25,5197,465,10,15,840,1059,20,600,30,660,13,45,725,510,550,160,0,600,490,600,11,750,270,20,10,980,54,725,54,25,5197,11,30,490,1059,465,160,750,13,660,600,0,270,25,840,20,600,15,600,510,0,550,20,10,980,10,0,465,25,20,490,980,20,10,0,15,600,510,550,660,0,270,30,725,600,10,160,11,13,600,0,5197,750,1059,54,25,840,15,160,600,54,980,600,10,1059,510,490,270,660,750,5197,725,25,20,25,840,0,11,30,550,0,13,0,10,20,600,465,5197,600,270,13,510,490,160,660,11,840,465,0,54,0,10,550,30,20,20,750,600,600,15,25,1059,25,45,10,725,980,660,1059,980,10,600,0,725,0,550,10,20,465,11,600,25,54,600,490,510,25,20,13,5197,45,840,160,270,30,15,750,750,20,11,725,13,600,510,54,10,25,840,550,5197,30,0,600,160,25,660,45,20,490,0,270,15,980,1059,10,465,600],["Open","Open","Open","Fixed Dome","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Fixed Dome","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Fixed Dome","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Fixed Dome","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Fixed Dome","Retractable","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Fixed Dome","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Fixed Dome","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Fixed Dome","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Open","Open","Open","Open","Fixed Dome","Open","Retractable","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Open","Fixed Dome","Retractable","Open","Retractable","Open","Open","Open","Open","Open","Open","Retractable","Retractable","Retractable","Open","Open","Open","Fixed Dome","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Fixed Dome","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Fixed Dome","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Fixed Dome","Open","Open","Open","Open","Retractable","Open","Retractable","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Retractable","Retractable","Retractable","Open","Open","Open","Retractable","Open","Fixed Dome","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Open","Retractable","Open","Open","Open","Open","Fixed Dome","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Retractable","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Open","Open","Fixed Dome","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Fixed Dome","Retractable","Open","Retractable","Open","Retractable","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Retractable","Fixed Dome","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Retractable","Retractable","Open","Fixed Dome","Open","Open","Open","Open","Open","Retractable","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Open","Open","Open","Open","Fixed Dome","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Retractable","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Retractable","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Fixed Dome","Retractable","Open","Open","Open","Retractable","Open","Retractable","Open","Open","Open","Open","Retractable","Retractable","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Fixed Dome","Open","Open","Retractable","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Retractable","Open","Open","Retractable","Open","Open","Open","Retractable","Open","Open","Open","Fixed Dome","Open","Open","Open","Retractable","Open","Open","Retractable","Retractable","Open","Open"]],"container":"<table class=\"compact stripe hover\">\n  <thead>\n    <tr>\n      <th>Season<\/th>\n      <th>Ballpark<\/th>\n      <th>Team<\/th>\n      <th>League<\/th>\n      <th>Split<\/th>\n      <th>HR Factor<\/th>\n      <th>Runs Factor<\/th>\n      <th>Avg Fence Dist (ft)<\/th>\n      <th>LF Line (ft)<\/th>\n      <th>CF (ft)<\/th>\n      <th>RF Line (ft)<\/th>\n      <th>Max Wall (ft)<\/th>\n      <th>Elevation (ft)<\/th>\n      <th>Roof<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["copy","csv","excel"],"pageLength":15,"searchHighlight":true,"autoWidth":true,"columnDefs":[{"className":"dt-right","targets":[0,5,6,7,8,9,10,11,12]},{"name":"Season","targets":0},{"name":"Ballpark","targets":1},{"name":"Team","targets":2},{"name":"League","targets":3},{"name":"Split","targets":4},{"name":"HR Factor","targets":5},{"name":"Runs Factor","targets":6},{"name":"Avg Fence Dist (ft)","targets":7},{"name":"LF Line (ft)","targets":8},{"name":"CF (ft)","targets":9},{"name":"RF Line (ft)","targets":10},{"name":"Max Wall (ft)","targets":11},{"name":"Elevation (ft)","targets":12},{"name":"Roof","targets":13}],"order":[],"orderClasses":false,"orderCellsTop":true,"responsive":true,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

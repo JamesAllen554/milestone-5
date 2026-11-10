@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MLB Ballpark Leaderboard &amp; Rankings – ⚾ MLB Statcast Explorer</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-eb52cf25de81082ee7edb8e760f3b9c7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">⚾ MLB Statcast Explorer</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">🏟️ Explorer</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./rankings.html" aria-current="page"> 
+<span class="menu-text">📊 Park Rankings</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./data.html"> 
+<span class="menu-text">📋 Data Table</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">ℹ️ About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://baseballsavant.mlb.com/leaderboard/statcast-park-factors"> 
+<span class="menu-text">Baseball Savant</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MLB Ballpark Leaderboard &amp; Rankings</h1>
+<p class="subtitle lead">Statcast 2026 Home Run Factor by Stadium</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="stadium-home-run-factor-rankings-2026" class="level2">
+<h2 class="anchored" data-anchor-id="stadium-home-run-factor-rankings-2026">Stadium Home Run Factor Rankings (2026)</h2>
+<p>A score of <strong>100</strong> represents MLB average. Stadiums with an index above 100 boost home run production above league average, while stadiums below 100 suppress home runs.</p>
+<div class="glass-card">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-559177ebd2a800cbb4e0" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-559177ebd2a800cbb4e0">{"x":{"visdat":{"4c81452a5a1":["function () ","plotlyVisDat"]},"cur_data":"4c81452a5a1","attrs":{"4c81452a5a1":{"y":{},"x":{},"orientation":"h","text":{},"textposition":"outside","hoverinfo":"text","hovertext":{},"color":{},"colors":["#ef4444","#64748b","#3b82f6"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"height":800,"margin":{"b":40,"l":60,"t":25,"r":10},"title":{"text":"<b>2026 MLB Ballparks Ranked by Statcast Home Run Factor<\/b>","font":{"color":"#ffffff","size":16}},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(15, 23, 42, 0.6)","xaxis":{"domain":[0,1],"automargin":true,"title":"Home Run Factor (100 = MLB Average)","gridcolor":"rgba(51, 65, 85, 0.4)","color":"#94a3b8","range":[60,145]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","gridcolor":"rgba(51, 65, 85, 0.2)","color":"#e2e8f0","type":"category","categoryorder":"array","categoryarray":["Angel Stadium","Busch Stadium","Oracle Park","loanDepot park","Progressive Field","Target Field","Fenway Park","PNC Park","Citi Field","Comerica Park","Petco Park","Chase Field","Rogers Centre","American Family Field","Globe Life Field","Oriole Park at Camden Yards","Rate Field","T-Mobile Park","Coors Field","Kauffman Stadium","Truist Park","Great American Ball Park","Citizens Bank Park","Tropicana Field","UNIQLO Field at Dodger Stadium","Daikin Park","Wrigley Field","Yankee Stadium","Nationals Park","Sutter Health Park"]},"legend":{"font":{"color":"#e2e8f0"},"orientation":"h","y":1.05},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":["Sutter Health Park","Nationals Park","Yankee Stadium","Wrigley Field","Daikin Park","UNIQLO Field at Dodger Stadium","Citizens Bank Park","Tropicana Field","Great American Ball Park","Coors Field","Kauffman Stadium","Truist Park"],"x":[133,124,121,117,113,111,108,108,106,105,105,105],"orientation":"h","text":["133 (Athletics)","124 (Nationals)","121 (Yankees)","117 (Cubs)","113 (Astros)","111 (Dodgers)","108 (Phillies)","108 (Rays)","106 (Reds)","105 (Rockies)","105 (Royals)","105 (Braves)"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text"],"hovertext":["<b>#1 Sutter Health Park<\/b><br>Team: Athletics (AL)<br>HR Factor: 133<br>Avg Fence Dist: 372.6 ft<br>Elevation: 25 ft<br>Roof: Open","<b>#2 Nationals Park<\/b><br>Team: Nationals (NL)<br>HR Factor: 124<br>Avg Fence Dist: 370.9 ft<br>Elevation: 25 ft<br>Roof: Open","<b>#3 Yankee Stadium<\/b><br>Team: Yankees (AL)<br>HR Factor: 121<br>Avg Fence Dist: 368.8 ft<br>Elevation: 54 ft<br>Roof: Open","<b>#4 Wrigley Field<\/b><br>Team: Cubs (NL)<br>HR Factor: 117<br>Avg Fence Dist: 367.5 ft<br>Elevation: 600 ft<br>Roof: Open","<b>#5 Daikin Park<\/b><br>Team: Astros (MLB)<br>HR Factor: 113<br>Avg Fence Dist: 364.2 ft<br>Elevation: 0 ft<br>Roof: Open","<b>#6 UNIQLO Field at Dodger Stadium<\/b><br>Team: Dodgers (NL)<br>HR Factor: 111<br>Avg Fence Dist: 369 ft<br>Elevation: 510 ft<br>Roof: Open","<b>#7 Citizens Bank Park<\/b><br>Team: Phillies (NL)<br>HR Factor: 108<br>Avg Fence Dist: 365.1 ft<br>Elevation: 20 ft<br>Roof: Open","<b>#8 Tropicana Field<\/b><br>Team: Rays (AL)<br>HR Factor: 108<br>Avg Fence Dist: 373.9 ft<br>Elevation: 45 ft<br>Roof: Fixed Dome","<b>#9 Great American Ball Park<\/b><br>Team: Reds (NL)<br>HR Factor: 106<br>Avg Fence Dist: 364.3 ft<br>Elevation: 490 ft<br>Roof: Open","<b>#10 Coors Field<\/b><br>Team: Rockies (NL)<br>HR Factor: 105<br>Avg Fence Dist: 385.5 ft<br>Elevation: 5197 ft<br>Roof: Open","<b>#11 Kauffman Stadium<\/b><br>Team: Royals (AL)<br>HR Factor: 105<br>Avg Fence Dist: 377.9 ft<br>Elevation: 750 ft<br>Roof: Open","<b>#12 Truist Park<\/b><br>Team: Braves (NL)<br>HR Factor: 105<br>Avg Fence Dist: 373.6 ft<br>Elevation: 980 ft<br>Roof: Open"],"type":"bar","name":"HR Friendly (>105)","marker":{"color":"rgba(239,68,68,1)","line":{"color":"rgba(239,68,68,1)"}},"textfont":{"color":"rgba(239,68,68,1)"},"error_y":{"color":"rgba(239,68,68,1)"},"error_x":{"color":"rgba(239,68,68,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":["Rate Field","Oriole Park at Camden Yards","T-Mobile Park","Globe Life Field","American Family Field"],"x":[104,104,104,99,98],"orientation":"h","text":["104 (White Sox)","104 (Orioles)","104 (Mariners)","99 (Rangers)","98 (Brewers)"],"textposition":["outside","outside","outside","outside","outside"],"hoverinfo":["text","text","text","text","text"],"hovertext":["<b>#13 Rate Field<\/b><br>Team: White Sox (MLB)<br>HR Factor: 104<br>Avg Fence Dist: 368.8 ft<br>Elevation: 0 ft<br>Roof: Open","<b>#14 Oriole Park at Camden Yards<\/b><br>Team: Orioles (AL)<br>HR Factor: 104<br>Avg Fence Dist: 370.7 ft<br>Elevation: 30 ft<br>Roof: Open","<b>#15 T-Mobile Park<\/b><br>Team: Mariners (AL)<br>HR Factor: 104<br>Avg Fence Dist: 367.4 ft<br>Elevation: 10 ft<br>Roof: Retractable","<b>#16 Globe Life Field<\/b><br>Team: Rangers (AL)<br>HR Factor: 99<br>Avg Fence Dist: 376.5 ft<br>Elevation: 550 ft<br>Roof: Retractable","<b>#17 American Family Field<\/b><br>Team: Brewers (NL)<br>HR Factor: 98<br>Avg Fence Dist: 371.6 ft<br>Elevation: 600 ft<br>Roof: Retractable"],"type":"bar","name":"Neutral (95-105)","marker":{"color":"rgba(100,116,139,1)","line":{"color":"rgba(100,116,139,1)"}},"textfont":{"color":"rgba(100,116,139,1)"},"error_y":{"color":"rgba(100,116,139,1)"},"error_x":{"color":"rgba(100,116,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":["Rogers Centre","Chase Field","Citi Field","Comerica Park","Petco Park","PNC Park","Fenway Park","Progressive Field","Target Field","loanDepot park","Oracle Park","Angel Stadium","Busch Stadium"],"x":[95,95,94,94,94,91,86,84,84,80,79,70,70],"orientation":"h","text":["95 (Blue Jays)","95 (D-backs)","94 (Mets)","94 (Tigers)","94 (Padres)","91 (Pirates)","86 (Red Sox)","84 (Guardians)","84 (Twins)","80 (Marlins)","79 (Giants)","70 (Angels)","70 (Cardinals)"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text"],"hovertext":["<b>#18 Rogers Centre<\/b><br>Team: Blue Jays (AL)<br>HR Factor: 95<br>Avg Fence Dist: 365.2 ft<br>Elevation: 270 ft<br>Roof: Retractable","<b>#19 Chase Field<\/b><br>Team: D-backs (NL)<br>HR Factor: 95<br>Avg Fence Dist: 379.9 ft<br>Elevation: 1059 ft<br>Roof: Retractable","<b>#20 Citi Field<\/b><br>Team: Mets (NL)<br>HR Factor: 94<br>Avg Fence Dist: 369.5 ft<br>Elevation: 13 ft<br>Roof: Open","<b>#21 Comerica Park<\/b><br>Team: Tigers (AL)<br>HR Factor: 94<br>Avg Fence Dist: 376.5 ft<br>Elevation: 600 ft<br>Roof: Open","<b>#22 Petco Park<\/b><br>Team: Padres (NL)<br>HR Factor: 94<br>Avg Fence Dist: 370.8 ft<br>Elevation: 15 ft<br>Roof: Open","<b>#23 PNC Park<\/b><br>Team: Pirates (NL)<br>HR Factor: 91<br>Avg Fence Dist: 373.2 ft<br>Elevation: 725 ft<br>Roof: Open","<b>#24 Fenway Park<\/b><br>Team: Red Sox (AL)<br>HR Factor: 86<br>Avg Fence Dist: 362 ft<br>Elevation: 20 ft<br>Roof: Open","<b>#25 Progressive Field<\/b><br>Team: Guardians (AL)<br>HR Factor: 84<br>Avg Fence Dist: 365.9 ft<br>Elevation: 660 ft<br>Roof: Open","<b>#26 Target Field<\/b><br>Team: Twins (AL)<br>HR Factor: 84<br>Avg Fence Dist: 369.9 ft<br>Elevation: 840 ft<br>Roof: Open","<b>#27 loanDepot park<\/b><br>Team: Marlins (NL)<br>HR Factor: 80<br>Avg Fence Dist: 374.2 ft<br>Elevation: 10 ft<br>Roof: Retractable","<b>#28 Oracle Park<\/b><br>Team: Giants (NL)<br>HR Factor: 79<br>Avg Fence Dist: 371.3 ft<br>Elevation: 11 ft<br>Roof: Open","<b>#29 Angel Stadium<\/b><br>Team: Angels (AL)<br>HR Factor: 70<br>Avg Fence Dist: 374.6 ft<br>Elevation: 160 ft<br>Roof: Open","<b>#30 Busch Stadium<\/b><br>Team: Cardinals (NL)<br>HR Factor: 70<br>Avg Fence Dist: 377.2 ft<br>Elevation: 465 ft<br>Roof: Open"],"type":"bar","name":"Pitcher Friendly (<95)","marker":{"color":"rgba(59,130,246,1)","line":{"color":"rgba(59,130,246,1)"}},"textfont":{"color":"rgba(59,130,246,1)"},"error_y":{"color":"rgba(59,130,246,1)"},"error_x":{"color":"rgba(59,130,246,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</section>
+<section id="ballpark-profiles-physical-specs" class="level2">
+<h2 class="anchored" data-anchor-id="ballpark-profiles-physical-specs">Ballpark Profiles &amp; Physical Specs</h2>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#1&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Sutter Health Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Athletics &amp;bull; AL West (Sacramento, CA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 133&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;330.2 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;401.3 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;324.5 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;372.6 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;13.3 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;25 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#2&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Nationals Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Nationals &amp;bull; NL East (Washington, DC)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 124&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;336.3 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;401.6 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;334.9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;370.9 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;16.3 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;25 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#3&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Yankee Stadium&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Yankees &amp;bull; AL East (Bronx, NY)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 121&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;317.5 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;408 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;313.4 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;368.8 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;8.5 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;54 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#4&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Wrigley Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Cubs &amp;bull; NL Central (Chicago, IL)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 117&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;354.2 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;397.2 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;349.2 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;367.5 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;11.4 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;600 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#5&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Daikin Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Astros &amp;bull; MLB ()&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 113&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;314.7 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;409.1 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;325.5 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;364.2 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;24.2 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;0 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#6&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;UNIQLO Field at Dodger Stadium&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Dodgers &amp;bull; NL West (Los Angeles, CA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 111&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;326.5 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;394.9 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;326.3 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;369 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;7.7 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;510 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#7&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Citizens Bank Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Phillies &amp;bull; NL East (Philadelphia, PA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 108&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;328.3 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;401.8 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;329.6 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;365.1 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;16.9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;20 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#8&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Tropicana Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Rays &amp;bull; AL East (St. Petersburg, FL)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 108&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;313.2 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;404 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;319.9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;373.9 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;11.3 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;45 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Fixed Dome&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#9&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Great American Ball Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Reds &amp;bull; NL Central (Cincinnati, OH)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 106&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;327.8 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;403.6 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;324.4 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;364.3 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;11.8 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;490 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#10&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Coors Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Rockies &amp;bull; NL West (Denver, CO)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 105&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;346.9 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;414.7 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;350.8 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;385.5 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;16.2 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;5197 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#11&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Kauffman Stadium&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Royals &amp;bull; AL Central (Kansas City, MO)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 105&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;325.2 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;410.1 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;326.2 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;377.9 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;8.1 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;750 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #ef4444;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#12&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Truist Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Braves &amp;bull; NL East (Atlanta, GA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-danger fs-6"&gt;HR 105&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;334.7 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;400 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;326 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;373.6 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;15.3 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;980 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #94a3b8;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#13&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Rate Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;White Sox &amp;bull; MLB ()&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-secondary fs-6"&gt;HR 104&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;328.4 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;400 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;334.6 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;368.8 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;6.9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;0 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #94a3b8;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#14&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Oriole Park at Camden Yards&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Orioles &amp;bull; AL East (Baltimore, MD)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-secondary fs-6"&gt;HR 104&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;332.9 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;399.6 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;317.8 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;370.7 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;19.9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;30 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #94a3b8;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#15&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;T-Mobile Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Mariners &amp;bull; AL West (Seattle, WA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-secondary fs-6"&gt;HR 104&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;330.7 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;400.7 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;326.9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;367.4 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;7.7 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;10 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Retractable&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #94a3b8;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#16&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Globe Life Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Rangers &amp;bull; AL West (Arlington, TX)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-secondary fs-6"&gt;HR 99&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;328.2 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;406.3 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;321.2 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;376.5 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;9.7 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;550 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Retractable&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #94a3b8;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#17&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;American Family Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Brewers &amp;bull; NL Central (Milwaukee, WI)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-secondary fs-6"&gt;HR 98&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;340.8 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;399.1 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;344.5 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;371.6 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;14.8 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;600 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Retractable&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#18&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Rogers Centre&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Blue Jays &amp;bull; AL East (Toronto, ON)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 95&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;328.1 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;400 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;328.3 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;365.2 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;14.2 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;270 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Retractable&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#19&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Chase Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;D-backs &amp;bull; NL West (Phoenix, AZ)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 95&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;328.7 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;406.3 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;333.7 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;379.9 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;24.5 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;1059 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Retractable&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#20&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Citi Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Mets &amp;bull; NL East (Queens, NY)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 94&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;334.3 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;407.4 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;329.5 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;369.5 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;9.8 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;13 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#21&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Comerica Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Tigers &amp;bull; AL Central (Detroit, MI)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 94&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;342.7 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;412.3 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;327.4 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;376.5 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;600 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#22&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Petco Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Padres &amp;bull; NL West (San Diego, CA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 94&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;334.6 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;395.9 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;321.8 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;370.8 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;10.4 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;15 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#23&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;PNC Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Pirates &amp;bull; NL Central (Pittsburgh, PA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 91&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;324.4 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;398.3 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;319.5 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;373.2 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;22.1 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;725 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#24&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Fenway Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Red Sox &amp;bull; AL East (Boston, MA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 86&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;308.5 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;388.5 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;299.3 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;362 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;37.3 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;20 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#25&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Progressive Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Guardians &amp;bull; AL Central (Cleveland, OH)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 84&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;324.8 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;400 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;324.6 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;365.9 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;20.1 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;660 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#26&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Target Field&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Twins &amp;bull; AL Central (Minneapolis, MN)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 84&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;338.3 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;403.8 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;327.9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;369.9 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;23.1 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;840 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#27&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;loanDepot park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Marlins &amp;bull; NL East (Miami, FL)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 80&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;343.8 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;396.3 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;334.6 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;374.2 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;11.2 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;10 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Retractable&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#28&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Oracle Park&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Giants &amp;bull; NL West (San Francisco, CA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 79&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;339.8 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;391.2 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;304.1 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;371.3 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;23.8 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;11 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#29&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Angel Stadium&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Angels &amp;bull; AL West (Anaheim, CA)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 70&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;329.6 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;398.3 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;329.6 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;374.6 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;6.7 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;160 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="col">
+<pre><code>&lt;div class="glass-card h-100" style="border-top: 3px solid #3b82f6;"&gt;
+  &lt;div class="d-flex justify-content-between align-items-start mb-2"&gt;
+    &lt;div&gt;
+      &lt;span class="text-secondary small"&gt;#30&lt;/span&gt;
+      &lt;h5 class="text-white mb-0 mt-1"&gt;Busch Stadium&lt;/h5&gt;
+      &lt;small class="text-muted"&gt;Cardinals &amp;bull; NL Central (St. Louis, MO)&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;span class="badge bg-primary fs-6"&gt;HR 70&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace"&gt;
+    &lt;div&gt;LF Line: &lt;span class="text-light"&gt;334.8 ft&lt;/span&gt; | CF: &lt;span class="text-light"&gt;399.6 ft&lt;/span&gt; | RF Line: &lt;span class="text-light"&gt;334.9 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Avg Fence: &lt;span class="text-light"&gt;377.2 ft&lt;/span&gt; | Max Wall: &lt;span class="text-light"&gt;7.5 ft&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;Elevation: &lt;span class="text-light"&gt;465 ft&lt;/span&gt; | Roof: &lt;span class="text-light"&gt;Open&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

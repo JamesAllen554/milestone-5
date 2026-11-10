@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --bg-color: #0b1120;
+  --card-bg: rgba(15, 23, 42, 0.85);
+  --border-color: rgba(51, 65, 85, 0.6);
+  --text-primary: #e2e8f0;
+  --text-muted: #94a3b8;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #0b1120 !important;
+  color: #e2e8f0 !important;
+}
+
+.mono, code, pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.glass-card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-card-hover:hover {
+  border-color: rgba(96, 165, 250, 0.5);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(59, 130, 246, 0.2);
+}
+
+/* Stat metric tiles */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-tile {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.stat-tile.border-blue { border-left: 4px solid #3b82f6; }
+.stat-tile.border-purple { border-left: 4px solid #a855f7; }
+.stat-tile.border-emerald { border-left: 4px solid #10b981; }
+.stat-tile.border-red { border-left: 4px solid #ef4444; }
+.stat-tile.border-amber { border-left: 4px solid #f59e0b; }
+.stat-tile.border-indigo { border-left: 4px solid #6366f1; }
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+
+.stat-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 0.25rem;
+}
+
+.stat-sub {
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
+}
+
+/* Navbar customization */
+.navbar {
+  background-color: #0f172a !important;
+  border-bottom: 1px solid #1e293b !important;
+}
+
+.navbar-brand, .nav-link {
+  color: #e2e8f0 !important;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #60a5fa !important;
+}
+
+/* Reactable & DT Table styling */
+.rt-table, .dataTable {
+  background-color: transparent !important;
+  color: #e2e8f0 !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+
+/* Panel tabset styles */
+.nav-tabs {
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6) !important;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+}
+
+.nav-tabs .nav-link {
+  color: #94a3b8 !important;
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  border: 1px solid rgba(51, 65, 85, 0.6) !important;
+  border-radius: 0.5rem !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  color: #ffffff !important;
+  background-color: rgba(30, 41, 59, 0.9) !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: #ffffff !important;
+  background-color: #2563eb !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+}
