@@ -102,12 +102,9 @@ p_rank
 
 ```{r}
 #| label: rankings-cards
-#| results: asis
 #| echo: false
 
-cat('<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">\n')
-
-for (i in seq_len(nrow(parks_2026))) {
+cards <- lapply(seq_len(nrow(parks_2026)), \(i) {
   row <- parks_2026[i, ]
   badge_class <- if (row$index_hr >= 105) {
     "badge bg-danger"
@@ -117,41 +114,42 @@ for (i in seq_len(nrow(parks_2026))) {
     "badge bg-secondary"
   }
   
-  cat(sprintf('
-  <div class="col">
-    <div class="glass-card h-100" style="border-top: 3px solid %s;">
-      <div class="d-flex justify-content-between align-items-start mb-2">
-        <div>
-          <span class="text-secondary small">#%d</span>
-          <h5 class="text-white mb-0 mt-1">%s</h5>
-          <small class="text-muted">%s &bull; %s (%s)</small>
-        </div>
-        <span class="%s fs-6">HR %d</span>
-      </div>
-      <div class="small text-secondary mt-3 pt-2 border-top border-dark font-monospace">
-        <div>LF Line: <span class="text-light">%s ft</span> | CF: <span class="text-light">%s ft</span> | RF Line: <span class="text-light">%s ft</span></div>
-        <div>Avg Fence: <span class="text-light">%s ft</span> | Max Wall: <span class="text-light">%s ft</span></div>
-        <div>Elevation: <span class="text-light">%s ft</span> | Roof: <span class="text-light">%s</span></div>
-      </div>
-    </div>
-  </div>',
-  row$cat_color,
-  row$rank,
-  row$venue_name,
-  row$team,
-  row$division,
-  row$city,
-  badge_class,
-  row$index_hr,
-  row$distance_lf_line,
-  row$distance_cf,
-  row$distance_rf_line,
-  row$avg_fence_distance,
-  row$height_highest,
-  row$elevation,
-  row$roof
-  ))
-}
+  htmltools::tags$div(
+    class = "col",
+    htmltools::tags$div(
+      class = "glass-card h-100",
+      style = paste0("border-top: 3px solid ", row$cat_color, ";"),
+      htmltools::tags$div(
+        class = "d-flex justify-content-between align-items-start mb-2",
+        htmltools::tags$div(
+          htmltools::tags$span(class = "text-secondary small", paste0("#", row$rank)),
+          htmltools::tags$h5(class = "text-white mb-0 mt-1", row$venue_name),
+          htmltools::tags$small(class = "text-muted", paste0(row$team, " • ", row$division, " (", row$city, ")"))
+        ),
+        htmltools::tags$span(class = paste0(badge_class, " fs-6"), paste0("HR ", row$index_hr))
+      ),
+      htmltools::tags$div(
+        class = "small text-secondary mt-3 pt-2 border-top border-dark font-monospace",
+        htmltools::tags$div(
+          "LF Line: ", htmltools::tags$span(class = "text-light", paste0(row$distance_lf_line, " ft")),
+          " | CF: ", htmltools::tags$span(class = "text-light", paste0(row$distance_cf, " ft")),
+          " | RF Line: ", htmltools::tags$span(class = "text-light", paste0(row$distance_rf_line, " ft"))
+        ),
+        htmltools::tags$div(
+          "Avg Fence: ", htmltools::tags$span(class = "text-light", paste0(row$avg_fence_distance, " ft")),
+          " | Max Wall: ", htmltools::tags$span(class = "text-light", paste0(row$height_highest, " ft"))
+        ),
+        htmltools::tags$div(
+          "Elevation: ", htmltools::tags$span(class = "text-light", paste0(row$elevation, " ft")),
+          " | Roof: ", htmltools::tags$span(class = "text-light", row$roof)
+        )
+      )
+    )
+  )
+})
 
-cat('</div>\n')
+htmltools::tags$div(
+  class = "row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3",
+  cards
+)
 ```
